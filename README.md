@@ -61,7 +61,9 @@ incorporated: the Convenor, recent workshops, and flagship activities.
 - 🖼️ **Photo Gallery** with lightbox
 - ✉️ **Join / Contact** section with form and social links
 - 💬 Floating WhatsApp button and scroll-to-top button
-- 🎨 **SUB-branded styling** on a Bootstrap 5 foundation
+- 🎨 **SUB-branded styling** on a Bootstrap 5 foundation — color palette extracted
+  from the original `sub.ac.bd` stylesheets (primary green `#198754`) with a
+  creative teal-green accent (`#20c997`)
 
 ## Live preview
 
