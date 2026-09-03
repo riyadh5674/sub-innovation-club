@@ -45,6 +45,14 @@ function render(data) {
   /* Title / meta */
   document.title = `${data.name} - State University of Bangladesh`;
 
+  /* University logo (nav + footer) */
+  const navLogo = document.getElementById('nav-logo');
+  const footerLogo = document.getElementById('footer-logo');
+  if (data.universityLogo) {
+    if (navLogo) navLogo.src = data.universityLogo;
+    if (footerLogo) footerLogo.src = data.universityLogo;
+  }
+
   /* Hero */
   document.getElementById('hero-club-name').textContent = data.name;
   document.getElementById('hero-tagline').textContent = data.tagline;
@@ -66,6 +74,13 @@ function render(data) {
   /* About */
   const aboutEl = document.getElementById('about-text');
   aboutEl.innerHTML = data.about.map((p) => `<p>${p}</p>`).join('');
+
+  /* About image */
+  const aboutImage = document.getElementById('about-image');
+  if (aboutImage) {
+    aboutImage.src = data.aboutImage || '';
+    aboutImage.alt = `${data.name} event`;
+  }
 
   /* Mission */
   const missionEl = document.getElementById('mission-list');
@@ -124,14 +139,16 @@ function render(data) {
   const gallery = document.getElementById('gallery-grid');
   if (data.gallery.length) {
     gallery.innerHTML = data.gallery
-      .map(
-        (src) => `
+      .map((item) => {
+        const src = typeof item === 'string' ? item : item.src;
+        const caption = typeof item === 'string' ? '' : item.caption || '';
+        return `
       <div class="col-6 col-lg-3">
-        <a href="${src}" class="gallery-item" data-lightbox="gallery">
-          <img src="${src}" alt="Club photo" loading="lazy">
+        <a href="${src}" class="gallery-item" data-lightbox="gallery" ${caption ? `data-caption="${caption}"` : ''}>
+          <img src="${src}" alt="${caption || 'Club photo'}" loading="lazy">
         </a>
-      </div>`
-      )
+      </div>`;
+      })
       .join('');
   } else {
     document.getElementById('gallery-section').style.display = 'none';
@@ -166,13 +183,13 @@ document.addEventListener('click', (e) => {
   const item = e.target.closest('[data-lightbox]');
   if (!item) return;
   e.preventDefault();
-  showLightbox(item.getAttribute('href'));
+  showLightbox(item.getAttribute('href'), item.getAttribute('data-caption') || '');
 });
 
-function showLightbox(src) {
+function showLightbox(src, caption = '') {
   const overlay = document.createElement('div');
   overlay.className = 'lightbox-overlay';
-  overlay.innerHTML = `<img src="${src}" alt="Club photo"><button class="lightbox-close" aria-label="Close">&times;</button>`;
+  overlay.innerHTML = `<img src="${src}" alt="Club photo"><button class="lightbox-close" aria-label="Close">&times;</button>${caption ? `<p class="lightbox-caption">${caption}</p>` : ''}`;
   overlay.addEventListener('click', () => overlay.remove());
   document.body.appendChild(overlay);
 }

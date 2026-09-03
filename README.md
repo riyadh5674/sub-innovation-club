@@ -136,7 +136,8 @@ Edit the values there and rebuild — no HTML or JS changes required.
 
 Real details already included: Convenor **Md. Samiul Islam** (Asst. Prof., CSE),
 the **Freelancing for Everyone** workshop (13 May 2025), and the **25 May 2025**
-club election.
+club election. The About image and photo gallery use **real event photos**
+pulled from the club's Facebook page, hosted locally so they never break.
 
 ## Building for production
 
@@ -173,7 +174,7 @@ The page was designed so the club content can be dropped into the university CMS
 ## Roadmap
 
 - [ ] Fill in the real executive committee once the members are published
-- [ ] Replace placeholder gallery images with event photos
+- [ ] Add more real event photos (Hackathon, Robotics, Treasure Hunt, etc.)
 - [ ] Wire the contact form to a mail service
 - [ ] Add a news/announcements block
 - [ ] Add a light/dark theme toggle (optional)

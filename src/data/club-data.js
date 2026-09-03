@@ -14,6 +14,13 @@
   ============================================================
 */
 
+import workshop01 from '../assets/images/freelancing-workshop-01.jpg';
+import workshop02 from '../assets/images/freelancing-workshop-02.jpg';
+import workshop03 from '../assets/images/freelancing-workshop-03.jpg';
+import workshop04 from '../assets/images/freelancing-workshop-04.jpg';
+import workshop05 from '../assets/images/freelancing-workshop-05.jpg';
+import subLogo from '../assets/images/sub-logo.jpg';
+
 export const clubData = {
   /* ---- Club identity ------------------------------------------------- */
   name: 'SUB Innovation Club',
@@ -24,6 +31,8 @@ export const clubData = {
     'Encouraging creativity, problem-solving, and entrepreneurship through innovation challenges and projects.',
   foundingNote:
     'A central club at the State University of Bangladesh (SUB) dedicated to nurturing the innovators, problem-solvers and entrepreneurs of tomorrow.',
+  aboutImage: workshop01,
+  universityLogo: subLogo,
 
   /* ---- About statement ------------------------------------------------ */
   about: [
@@ -175,9 +184,13 @@ export const clubData = {
     },
   ],
 
-  /* ---- Photo gallery (placeholders - add real image URLs later) ------- */
-  // Use any https:// image URL. Add as many as you like.
+  /* ---- Photo gallery (real event photos + SUB campus imagery) ---------- */
   gallery: [
+    { src: workshop01, caption: 'Freelancing for Everyone Workshop' },
+    { src: workshop02, caption: 'Freelancing for Everyone Workshop' },
+    { src: workshop03, caption: 'Freelancing for Everyone Workshop' },
+    { src: workshop04, caption: 'Freelancing for Everyone Workshop' },
+    { src: workshop05, caption: 'Freelancing for Everyone Workshop' },
     'https://www.sub.ac.bd/uploads/gallery/e415a1a5923ef29ac4ea.JPG',
     'https://www.sub.ac.bd/uploads/gallery/0e3dbf3a1e8c93a427df.JPG',
     'https://www.sub.ac.bd/uploads/gallery/a564097d28a40056978c.JPG',

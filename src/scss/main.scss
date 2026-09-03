@@ -66,16 +66,10 @@ section {
     gap: 0.6rem;
     text-decoration: none;
 
-    .brand-mark {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      display: grid;
-      place-items: center;
-      color: #fff;
-      font-weight: 800;
-      font-size: 1.05rem;
-      background: linear-gradient(135deg, var(--subic-primary), var(--subic-accent));
+    .brand-logo {
+      height: 46px;
+      width: auto;
+      display: block;
     }
 
     .brand-text {
@@ -506,11 +500,15 @@ section {
   inset: 0;
   z-index: 3000;
   background: rgba(0,0,0,0.9);
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
   padding: 2rem;
 
-  img { max-width: 90vw; max-height: 85vh; border-radius: 8px; }
+  img { max-width: 92vw; max-height: 82vh; border-radius: 8px; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
+  .lightbox-caption { color: #fff; font-size: 0.95rem; margin: 0; text-align: center; }
   .lightbox-close {
     position: absolute;
     top: 16px;
