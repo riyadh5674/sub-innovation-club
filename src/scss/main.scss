@@ -384,7 +384,21 @@ section {
       margin: 0 auto;
     }
 
+    .member-open-avatar {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 1.5rem;
+      color: var(--subic-primary);
+      background: rgba(25,135,84,0.08);
+      border: 2px dashed var(--subic-primary);
+      margin: 0 auto;
+    }
+
     .member-name { font-weight: 700; color: var(--subic-dark); font-size: 1.05rem; margin: 0; }
+    .member-open { color: #6c757d; font-weight: 500; font-style: italic; }
     .member-role { color: var(--subic-primary); font-weight: 600; font-size: 0.9rem; }
     .member-dept { font-size: 0.8rem; color: #6c757d; }
   }

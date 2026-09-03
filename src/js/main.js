@@ -30,13 +30,18 @@ function avatarHtml(member) {
 }
 
 function memberCard(member) {
+  const hasName = Boolean(member.name && member.name.trim());
+  const nameHtml = hasName
+    ? `<h4 class="member-name">${member.name}</h4>` +
+      (member.dept ? `<p class="member-dept">${member.dept}</p>` : '')
+    : `<h4 class="member-name member-open">Open Position</h4>
+       <p class="member-dept">To be announced</p>`;
   return `
     <div class="col-6 col-md-4 col-lg-3">
       <div class="member-card">
-        <div class="member-avatar">${avatarHtml(member)}</div>
-        <h4 class="member-name">${member.name}</h4>
+        <div class="member-avatar">${hasName ? avatarHtml(member) : '<span class="member-photo member-initials member-open-avatar"><i class="fa-solid fa-user-plus"></i></span>'}</div>
         <p class="member-role">${member.role}</p>
-        <p class="member-dept">${member.dept || ''}</p>
+        ${nameHtml}
       </div>
     </div>`;
 }

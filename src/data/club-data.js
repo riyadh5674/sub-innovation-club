@@ -20,6 +20,7 @@ import workshop03 from '../assets/images/freelancing-workshop-03.jpg';
 import workshop04 from '../assets/images/freelancing-workshop-04.jpg';
 import workshop05 from '../assets/images/freelancing-workshop-05.jpg';
 import subLogo from '../assets/images/sub-logo.jpg';
+import convenorPhoto from '../assets/images/convenor-sovon-mallick.jpg';
 
 export const clubData = {
   /* ---- Club identity ------------------------------------------------- */
@@ -121,66 +122,30 @@ export const clubData = {
     },
   ],
 
-  /* ---- Committee members (PLACEHOLDERS - edit later) ------------------ */
-  // photo: leave empty string "" to show a generated initials avatar.
+  /* ---- Executive committee -------------------------------------------- */
+  /* NOTE: Names/members are not yet published. Roles are listed here as
+     open positions (placeholders). Set `name` to a member's real name and
+     `photo` to their image URL, or leave `name: ''` to hide the card.
+     `dept` is optional and NOT assumed - only fill it if you actually know
+     the member's department. */
   committee: [
-    {
-      name: 'President',
-      role: 'President',
-      photo: '',
-      dept: 'Computer Science & Engineering',
-    },
-    {
-      name: 'Vice President',
-      role: 'Vice President',
-      photo: '',
-      dept: 'Business Studies',
-    },
-    {
-      name: 'General Secretary',
-      role: 'General Secretary',
-      photo: '',
-      dept: 'Computer Science & Engineering',
-    },
-    {
-      name: 'Joint Secretary',
-      role: 'Joint Secretary',
-      photo: '',
-      dept: 'English Studies',
-    },
-    {
-      name: 'Treasurer',
-      role: 'Treasurer',
-      photo: '',
-      dept: 'Business Studies',
-    },
-    {
-      name: 'Event Coordinator',
-      role: 'Event Coordinator',
-      photo: '',
-      dept: 'Law',
-    },
-    {
-      name: 'Public Relations',
-      role: 'Public Relations Officer',
-      photo: '',
-      dept: 'Journalism, Communication & Media Studies',
-    },
-    {
-      name: 'Creative & Design',
-      role: 'Creative & Design Lead',
-      photo: '',
-      dept: 'Architecture',
-    },
+    { name: '', role: 'President', photo: '', dept: '' },
+    { name: '', role: 'Vice President', photo: '', dept: '' },
+    { name: '', role: 'General Secretary', photo: '', dept: '' },
+    { name: '', role: 'Joint Secretary', photo: '', dept: '' },
+    { name: '', role: 'Treasurer', photo: '', dept: '' },
+    { name: '', role: 'Event Coordinator', photo: '', dept: '' },
+    { name: '', role: 'Public Relations Officer', photo: '', dept: '' },
+    { name: '', role: 'Creative & Design Lead', photo: '', dept: '' },
   ],
 
-  /* ---- Advisors / Convenor (real, from SUB sources) ------------------- */
+  /* ---- Convenor / Advisors (official, from SUB faculty page) ----------- */
   advisors: [
     {
-      name: 'Md. Samiul Islam',
+      name: 'Sovon Mallick',
       role: 'Convenor',
-      photo: '',
-      dept: 'Assistant Professor, Computer Science & Engineering',
+      photo: convenorPhoto,
+      dept: 'Lecturer, Department of CSE',
     },
   ],
 
