@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SUB Innovation Club (SUBIC) - Encouraging creativity, problem-solving, and entrepreneurship through innovation challenges and projects at the State University of Bangladesh." />
+  <title>SUB Innovation Club - State University of Bangladesh</title>
+</head>
+<body>
+
+  <!-- =====================================================
+       STYLE NOTE FOR MERGING WITH SUB SITE
+       =====================================================
+       To merge this page into the university CMS (sub.ac.bd):
+       1. Replace the <header> and <footer> sections below with
+          the live SUB site header/footer so navigation stays
+          consistent.
+       2. Keep everything inside <main> as-is - it is the club
+          content.
+       3. The compiled CSS/JS in dist/ can be added to the theme,
+          or the SCSS source can be compiled into main.css.
+      ====================================================== -->
+
+  <!-- SUB-style header (replace with live SUB header when merging) -->
+  <nav class="navbar navbar-expand-lg club-navbar sticky-top">
+    <div class="container">
+      <a class="brand" href="#">
+        <span class="brand-mark">SU</span>
+        <span class="brand-text">
+          <span class="n">SUB Innovation Club</span>
+          <span class="s">State University of Bangladesh</span>
+        </span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#mission-vision">Mission</a></li>
+          <li class="nav-item"><a class="nav-link" href="#activities">Activities</a></li>
+          <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="#committee">Committee</a></li>
+          <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item ms-lg-2">
+            <a class="btn btn-join" href="#join">Join the Club</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="home">
+      <div class="hero-grid-bg"></div>
+      <div class="container">
+        <a class="back-sub" href="https://www.sub.ac.bd" target="_blank" rel="noopener">
+          <i class="fa-solid fa-arrow-left"></i> Back to SUB
+        </a>
+        <div class="hero-badge"><i class="fa-solid fa-bolt"></i> Central Club of State University of Bangladesh</div>
+        <h1 id="hero-club-name">SUB Innovation Club</h1>
+        <p class="lead" id="hero-tagline">
+          Encouraging creativity, problem-solving, and entrepreneurship through innovation challenges and projects.
+        </p>
+        <div class="hero-actions">
+          <a href="#join" class="btn btn-light">Become a Member</a>
+          <a href="#activities" class="btn btn-outline-light">Explore Activities</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= STATS ================= -->
+    <section class="stats-strip py-0">
+      <div class="container">
+        <div class="row g-3" id="stats-row"></div>
+      </div>
+    </section>
+
+    <!-- ================= ABOUT ================= -->
+    <section class="about" id="about">
+      <div class="container">
+        <div class="row g-5 align-items-center">
+          <div class="col-lg-5">
+            <p class="section-eyebrow">Who We Are</p>
+            <h2 class="section-title">About the Club</h2>
+            <div class="card-icon my-3"><i class="fa-solid fa-lightbulb"></i></div>
+            <div id="about-text" class="text-muted"></div>
+          </div>
+          <div class="col-lg-7">
+            <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow">
+              <img src="https://www.sub.ac.bd/uploads/logo/cdcbff91d69b664eef72.jpg" alt="State University of Bangladesh"
+                style="object-fit:cover;" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= MISSION / VISION ================= -->
+    <section class="mission-vision" id="mission-vision">
+      <div class="container">
+        <div class="text-center mb-5">
+          <p class="section-eyebrow">Our Purpose</p>
+          <h2 class="section-title">Mission &amp; Vision</h2>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="mv-card">
+              <div class="mv-head">
+                <div class="card-icon"><i class="fa-solid fa-bullseye"></i></div>
+                <h3>Our Mission</h3>
+              </div>
+              <ul class="mission-list" id="mission-list"></ul>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="mv-card">
+              <div class="mv-head">
+                <div class="card-icon"><i class="fa-solid fa-eye"></i></div>
+                <h3>Our Vision</h3>
+              </div>
+              <p class="text-muted" id="vision-text"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ACTIVITIES ================= -->
+    <section class="activities" id="activities">
+      <div class="container">
+        <div class="text-center mb-5">
+          <p class="section-eyebrow">What We Do</p>
+          <h2 class="section-title">Major Activities</h2>
+          <p class="section-sub">Hands-on competitions, challenges and projects that turn ideas into real skills.</p>
+        </div>
+        <div class="row g-4" id="activities-grid"></div>
+      </div>
+    </section>
+
+    <!-- ================= EVENTS ================= -->
+    <section class="events" id="events">
+      <div class="container">
+        <div class="text-center mb-5">
+          <p class="section-eyebrow">Highlights</p>
+          <h2 class="section-title">Events &amp; Highlights</h2>
+          <p class="section-sub">Recent programmes organized by the SUB Innovation Club.</p>
+        </div>
+        <div class="timeline" id="events-wrap"></div>
+      </div>
+    </section>
+
+    <!-- ================= COMMITTEE ================= -->
+    <section class="committee" id="committee">
+      <div class="container">
+        <div class="text-center mb-5">
+          <p class="section-eyebrow">The Team</p>
+          <h2 class="section-title">Executive Committee</h2>
+          <p class="section-sub">The students leading the club. (Names are placeholders - update them in the data file.)</p>
+        </div>
+        <div class="row g-4 justify-content-center" id="committee-grid"></div>
+
+        <!-- Advisors -->
+        <div id="advisors-section">
+          <h3 class="text-center section-title mt-5 mb-4" style="font-size:1.4rem;">Convenor &amp; Advisors</h3>
+          <div class="row g-4 justify-content-center" id="advisors-grid"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GALLERY ================= -->
+    <section class="gallery" id="gallery">
+      <div class="container">
+        <div class="text-center mb-5">
+          <p class="section-eyebrow">Moments</p>
+          <h2 class="section-title">Photo Gallery</h2>
+          <p class="section-sub">Glimpses from our events and activities.</p>
+        </div>
+        <div class="row g-3" id="gallery-grid"></div>
+      </div>
+    </section>
+
+    <!-- ================= JOIN CTA ================= -->
+    <section class="pb-5 pt-0" id="join">
+      <div class="container">
+        <div class="join-cta text-center">
+          <h3>Ready to innovate?</h3>
+          <p class="lead mb-4">Join the SUB Innovation Club and turn your ideas into impact.</p>
+          <a class="btn btn-light btn-lg" href="#contact">Get in Touch</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTACT ================= -->
+    <section class="contact" id="contact">
+      <div class="container">
+        <div class="text-center mb-5">
+          <p class="section-eyebrow">Find Us</p>
+          <h2 class="section-title">Contact the Club</h2>
+        </div>
+        <div class="row g-4 justify-content-center">
+          <div class="col-lg-6">
+            <div class="info-item">
+              <div class="icon"><i class="fa-solid fa-envelope"></i></div>
+              <div>
+                <p class="label">Email</p>
+                <p class="value" id="contact-email"></p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="icon"><i class="fa-solid fa-phone"></i></div>
+              <div>
+                <p class="label">Phone / WhatsApp</p>
+                <p class="value" id="contact-phone"></p>
+              </div>
+            </div>
+            <div class="info-item">
+              <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
+              <div>
+                <p class="label">Location</p>
+                <p class="value" id="contact-location"></p>
+              </div>
+            </div>
+            <div class="social-links" id="social-links"></div>
+          </div>
+          <div class="col-lg-6">
+            <div class="card border-0 shadow-sm p-4 h-100">
+              <h5 class="mb-3">Send us a message</h5>
+              <form onsubmit="return false;">
+                <div class="mb-3">
+                  <input type="text" class="form-control" placeholder="Your name" />
+                </div>
+                <div class="mb-3">
+                  <input type="email" class="form-control" placeholder="Your email" />
+                </div>
+                <div class="mb-3">
+                  <textarea class="form-control" rows="4" placeholder="Your message"></textarea>
+                </div>
+                <button class="btn btn-join w-100">Send</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== SUB-style footer (replace with live SUB footer when merging) ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <a class="brand" href="#" style="text-decoration:none;">
+            <span class="brand-mark">SU</span>
+            <span class="brand-text">
+              <span class="n">SUB Innovation Club</span>
+              <span class="s">State University of Bangladesh</span>
+            </span>
+          </a>
+          <p class="mt-3">Encouraging creativity, problem-solving, and entrepreneurship through innovation challenges and projects.</p>
+        </div>
+        <div class="col-lg-4">
+          <h6 class="text-white mb-3">Quick Links</h6>
+          <ul class="list-unstyled">
+            <li><a class="text-decoration-none" href="#about">About</a></li>
+            <li><a class="text-decoration-none" href="#activities">Activities</a></li>
+            <li><a class="text-decoration-none" href="#events">Events</a></li>
+            <li><a class="text-decoration-none" href="#committee">Committee</a></li>
+            <li><a class="text-decoration-none" href="https://www.sub.ac.bd" target="_blank" rel="noopener">SUB Main Website</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h6 class="text-white mb-3">Connect</h6>
+          <div class="social-links" id="social-links-footer"></div>
+          <p class="mt-3 mb-0"><i class="fa-solid fa-location-dot me-2"></i>696 Kendua, Kanchan, Rupganj, Narayanganj, Dhaka-1461, Bangladesh</p>
+        </div>
+      </div>
+      <hr class="my-4" />
+      <p class="mb-0 text-center small">
+        &copy; 2026 SUB Innovation Club &middot; State University of Bangladesh. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Floating WhatsApp button -->
+  <a href="https://wa.me/8801766662992" target="_blank" rel="noopener" class="whatsapp-float" title="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- Scroll to top -->
+  <button class="scroll-top" id="scrollTopBtn" style="display:none;" title="Back to top">
+    <i class="fa-solid fa-arrow-up"></i>
+  </button>
+
+  <script type="module" src="/src/js/main.js"></script>
+</body>
+</html>
