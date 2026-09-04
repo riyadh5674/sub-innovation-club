@@ -316,6 +316,16 @@ function setupFormSubmit() {
       const form = document.getElementById('membershipForm');
       const fd = new FormData(form);
 
+      // Formspree (this form) does not accept attached files, so we omit the
+      // file inputs (photo + payment screenshot) to guarantee submission.
+      ['photo', 'paymentScreenshot'].forEach((name) => fd.delete(name));
+
+      // Remember that screenshots exist so the club can request them
+      const photoFile = document.getElementById('memberPhoto')?.files?.[0];
+      const shotFile = document.getElementById('paymentScreenshot')?.files?.[0];
+      fd.append('photoProvided', photoFile ? 'Yes' : 'No');
+      fd.append('screenshotProvided', shotFile ? 'Yes' : 'No');
+
       // Add extra fields
       fd.append('paymentMethod', formData.paymentMethod);
       fd.append('txnId', formData.txnId);
