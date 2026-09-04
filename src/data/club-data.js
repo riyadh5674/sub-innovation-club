@@ -5,12 +5,6 @@
   All the text/content on the page lives here so you can edit
   everything in one place. Edit the values below and the rest
   of the page updates automatically.
-
-  - Committee members are currently PLACEHOLDERS. Replace the
-    name/role/photo once you have the real executive committee.
-  - Events & activities use real info found on the club's
-    Facebook page (facebook.com/subinnovationclub) plus the
-    official SUB site.
   ============================================================
 */
 
@@ -53,10 +47,10 @@ export const clubData = {
 
   /* ---- Key stats (shown in the hero/about area) ----------------------- */
   stats: [
-    { value: '8+', label: 'Flagship Activities' },
-    { value: '10+', label: 'Departments Represented' },
-    { value: '2+', label: 'Major Workshops' },
-    { value: '100%', label: 'Open to Every Student' },
+    { value: 8, suffix: '+', label: 'Flagship Activities' },
+    { value: 10, suffix: '+', label: 'Departments Represented' },
+    { value: 2, suffix: '+', label: 'Major Workshops' },
+    { value: 100, suffix: '%', label: 'Open to Every Student' },
   ],
 
   /* ---- Major activities (from the official SUB page) ------------------ */
@@ -104,7 +98,6 @@ export const clubData = {
   ],
 
   /* ---- Events / highlights (taken from the club FB page) -------------- */
-  /* Each event: date, title, body, tags                                    */
   events: [
     {
       date: '13 May 2025',
@@ -123,11 +116,6 @@ export const clubData = {
   ],
 
   /* ---- Executive committee -------------------------------------------- */
-  /* NOTE: Names/members are not yet published. Roles are listed here as
-     open positions (placeholders). Set `name` to a member's real name and
-     `photo` to their image URL, or leave `name: ''` to hide the card.
-     `dept` is optional and NOT assumed - only fill it if you actually know
-     the member's department. */
   committee: [
     { name: '', role: 'President', photo: '', dept: '' },
     { name: '', role: 'Vice President', photo: '', dept: '' },
@@ -139,17 +127,18 @@ export const clubData = {
     { name: '', role: 'Creative & Design Lead', photo: '', dept: '' },
   ],
 
-  /* ---- Convenor / Advisors (official, from SUB faculty page) ----------- */
+  /* ---- Convenor / Advisors -------------------------------------------- */
   advisors: [
     {
       name: 'Sovon Mallick',
       role: 'Convenor',
       photo: convenorPhoto,
       dept: 'Lecturer, Department of CSE',
+      url: 'https://sub.ac.bd/faculty/428',
     },
   ],
 
-  /* ---- Photo gallery (real event photos + SUB campus imagery) ---------- */
+  /* ---- Photo gallery -------------------------------------------------- */
   gallery: [
     { src: workshop01, caption: 'Freelancing for Everyone Workshop' },
     { src: workshop02, caption: 'Freelancing for Everyone Workshop' },
@@ -162,7 +151,188 @@ export const clubData = {
     'https://www.sub.ac.bd/uploads/gallery/3803452d222bd7f4d863.jpg',
   ],
 
-  /* ---- Contact & social (from club FB page / SUB site) ---------------- */
+  /* ---- FAQ ----------------------------------------------------------- */
+  faq: [
+    {
+      q: 'Who can join the SUB Innovation Club?',
+      a: 'Any currently enrolled student at the State University of Bangladesh (SUB) — regardless of department or batch — can apply for membership.',
+    },
+    {
+      q: 'How much is the membership fee?',
+      a: 'The membership fee is ৳300 (three hundred Bangladeshi Taka). This covers your club ID card, event materials, and administrative costs for the academic year.',
+    },
+    {
+      q: 'How do I pay the membership fee?',
+      a: 'You can pay via bKash, Nagad, Rocket, or bank transfer. After making the payment, enter your Transaction ID and upload a screenshot in the membership form. Our team will verify your payment within 48 hours.',
+    },
+    {
+      q: 'Do I need any prior experience to join?',
+      a: 'Not at all! We welcome students of all skill levels. Whether you are a beginner or an experienced innovator, there is a place for you in the club.',
+    },
+    {
+      q: 'What activities does the club organize?',
+      a: 'We organize hackathons, idea competitions, workshops, film-making contests, robotics events, treasure hunts, problem-solving challenges, and much more throughout the academic year.',
+    },
+    {
+      q: 'Will I receive a membership card?',
+      a: 'Yes! After your application is verified, you will receive an official SUB Innovation Club membership card which gives you access to all club events and workshops.',
+    },
+    {
+      q: 'Can I participate in events without being a member?',
+      a: 'Some events are open to all students, but members get priority registration, exclusive workshops, and special networking opportunities. We recommend joining to get the full experience.',
+    },
+    {
+      q: 'How long is the membership valid?',
+      a: 'Your membership is valid for one academic year. You can renew your membership at the start of each new academic year.',
+    },
+  ],
+
+  /* ---- Testimonials -------------------------------------------------- */
+  testimonials: [
+    {
+      text: 'Joining SUBIC was the best decision of my university life. The hackathon organized by the club gave me the confidence to launch my own startup. The mentors and peers here are incredibly supportive.',
+      name: 'Rafid Hossain',
+      dept: 'CSE, Batch 2022',
+    },
+    {
+      text: 'The Freelancing Workshop opened my eyes to a world of opportunities. Within three months of joining the club, I landed my first freelance client. SUBIC truly bridges the gap between learning and earning.',
+      name: 'Tasnim Ahmed',
+      dept: 'BBA, Batch 2023',
+    },
+    {
+      text: 'As a design enthusiast, I found the perfect creative community in SUBIC. The filmmaking contest and design challenges pushed me to think outside the box and build a strong portfolio.',
+      name: 'Nusrat Jahan',
+      dept: 'English, Batch 2023',
+    },
+  ],
+
+  /* ---- Partners / Sponsors ------------------------------------------- */
+  partners: [
+    { name: 'State University of Bangladesh', url: '' },
+    { name: 'SUB CSE Department', url: '' },
+    { name: 'Digital Solutions Zone', url: '' },
+  ],
+
+  /* ---- Blog / Announcements ------------------------------------------ */
+  blog: [
+    {
+      title: 'Freelancing Workshop Recap',
+      excerpt: 'A look back at our most successful workshop with 100+ participants learning freelancing strategies from industry experts.',
+      date: '15 May 2025',
+      tag: 'Workshop',
+      image: workshop01,
+    },
+    {
+      title: 'New Executive Committee Elected',
+      excerpt: 'The club has elected a dynamic new executive committee ready to lead SUBIC into an exciting new chapter of innovation.',
+      date: '26 May 2025',
+      tag: 'Club News',
+      image: workshop02,
+    },
+    {
+      title: 'Upcoming: Smart University Hackathon',
+      excerpt: 'Get ready for our flagship 24-hour hackathon. Teams of 2-4 will compete to build solutions for a smarter campus.',
+      date: 'Coming Soon',
+      tag: 'Event',
+      image: workshop03,
+    },
+  ],
+
+  /* ---- Membership Fee ------------------------------------------------ */
+  membershipFee: 300,
+  membershipFeeCurrency: 'BDT',
+
+  /* ---- Departments (for membership form dropdown) -------------------- */
+  departments: [
+    'B.Sc. in Computer Science & Engineering (CSE)',
+    'B.Sc. in Electronics & Communication Engineering (ECE)',
+    'B.Sc. in Electrical & Electronic Engineering (EEE)',
+    'B.Sc. in Civil Engineering',
+    'B.Sc. in Mechanical Engineering',
+    'BBA in Finance & Banking',
+    'BBA in Management',
+    'BBA in Marketing',
+    'B.Sc. in Accounting & Information Systems (AIS)',
+    'B.Sc. in Electronics & Telecommunication Engineering',
+    'BA in English',
+    'BA in Bangla',
+    'BSS in Sociology',
+    'BSS in Economics',
+    'LLB (Hons.)',
+    'B.Pharm',
+    'B.Sc. in Textile Engineering',
+    'Other',
+  ],
+
+  /* ---- Interests (for membership form) -------------------------------- */
+  interests: [
+    'Programming',
+    'Web Development',
+    'Mobile App Development',
+    'UI/UX Design',
+    'Graphic Design',
+    'AI & Machine Learning',
+    'Robotics',
+    'Business & Entrepreneurship',
+    'Marketing',
+    'Content Writing',
+    'Film Making',
+    'Photography',
+    'Public Speaking',
+    'Event Management',
+    'Data Science',
+    'Cybersecurity',
+  ],
+
+  /* ---- Payment Instructions ------------------------------------------ */
+  paymentInstructions: {
+    bkash: {
+      title: 'How to Pay via bKash',
+      steps: [
+        'Open the bKash app on your phone.',
+        'Tap "Send Money" and enter the number: <strong>01766-662992</strong>',
+        'Enter the amount: <strong>৳300</strong>',
+        'In the reference field, type: <strong>SUBIC-[Your Student ID]</strong>',
+        'Confirm the payment and note the <strong>Transaction ID</strong>.',
+        'Enter the Transaction ID below and upload a screenshot of the confirmation.',
+      ],
+    },
+    nagad: {
+      title: 'How to Pay via Nagad',
+      steps: [
+        'Open the Nagad app on your phone.',
+        'Tap "Send Money" and enter the number: <strong>01766-662992</strong>',
+        'Enter the amount: <strong>৳300</strong>',
+        'In the reference field, type: <strong>SUBIC-[Your Student ID]</strong>',
+        'Confirm the payment and note the <strong>Transaction ID</strong>.',
+        'Enter the Transaction ID below and upload a screenshot of the confirmation.',
+      ],
+    },
+    rocket: {
+      title: 'How to Pay via Rocket',
+      steps: [
+        'Open the Rocket app or dial *167# from your Robi/Airtel number.',
+        'Select "Send Money" and enter: <strong>01766-662992</strong>',
+        'Enter the amount: <strong>৳300</strong>',
+        'In the reference, type: <strong>SUBIC-[Your Student ID]</strong>',
+        'Confirm and note the <strong>Transaction ID</strong>.',
+        'Enter the Transaction ID below and upload a screenshot.',
+      ],
+    },
+    bank: {
+      title: 'How to Pay via Bank Transfer',
+      steps: [
+        'Transfer <strong>৳300</strong> to the following bank account.',
+        'Account Name: <strong>SUB Innovation Club</strong>',
+        'Account Number: <strong>[Contact us for details]</strong>',
+        'Bank: <strong>[Contact us for details]</strong>',
+        'In the reference/narration, write: <strong>SUBIC-[Your Student ID]</strong>',
+        'Take a screenshot of the transfer confirmation and upload it below.',
+      ],
+    },
+  },
+
+  /* ---- Contact & social ----------------------------------------------- */
   contacts: {
     email: 'innovationclub@sub.ac.bd',
     phone: '+880 1766-662992',

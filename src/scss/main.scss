@@ -3,26 +3,25 @@
 // Built on Bootstrap 5 so it stays mergeable with the SUB site.
 // ============================================================
 
-// ============================================================
-// 1. Color system - follows the ORIGINAL SUB website green palette
-//    (extracted from sub.ac.bd/assets/frontend/css/*.css)
-//    Primary brand:  #198754  (Bootstrap/SUB green)
-//    Highlight:      #28a745  (brighter green – used by SUB)
-//    Soft sage:      #87bf99  (SUB subtle green background)
-//    Deep green:     #14532d  (headings / dark accents)
-// ============================================================
+// 1. Variables (must be defined before @use)
+$brand-primary: #198754;
+$brand-accent: #20c997;
+$brand-dark: #14532d;
+$brand-soft: #87bf99;
 
-$brand-primary: #198754;     // SUB primary green
-$brand-accent: #20c997;      // creative teal-green accent (gradient partner)
-$brand-dark: #14532d;        // deep green for headings
-$brand-soft: #87bf99;        // SUB sage green
-
-// 2. Configure Bootstrap so ALL components use the green primary
+// 2. Bootstrap (must be the first @use)
 @use "bootstrap" with (
   $primary: $brand-primary,
   $success: $brand-primary,
   $enable-shadows: true
 );
+
+// 3. Partials
+@import 'preloader';
+@import 'animations';
+@import 'sections';
+@import 'membership';
+@import 'dark';
 
 // 3. CSS variables (single source of truth for the theme)
 :root {
@@ -38,12 +37,40 @@ html {
 }
 
 body {
-  font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   color: #3a3f45;
+  background: #fff;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+h1, h2, h3, h4, h5, h6,
+.section-title,
+.hero h1,
+.stat-value,
+.member-name {
+  font-family: 'Space Grotesk', 'Inter', 'Segoe UI', sans-serif;
+}
+
+html { scroll-behavior: smooth; }
 
 section {
   padding: 72px 0;
+  transition: background-color 0.3s ease;
+}
+
+.card,
+.mv-card,
+.activity-card,
+.timeline-card,
+.member-card,
+.stat-box,
+.blog-card,
+.testimonial-card,
+.faq-item,
+.partner-card,
+.form-control,
+.form-select {
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .section-eyebrow {
@@ -363,6 +390,34 @@ section {
 
     .member-avatar { margin-bottom: 0.9rem; }
 
+    .member-avatar a {
+      display: inline-block;
+      border-radius: 50%;
+      position: relative;
+      transition: transform 0.2s ease;
+
+      &::after {
+        content: '\f35d';  /* external-link icon */
+        font-family: 'Font Awesome 6 Free';
+        font-weight: 900;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--subic-primary), var(--subic-accent));
+        color: #fff;
+        font-size: 0.7rem;
+        display: grid;
+        place-items: center;
+        border: 2px solid #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      }
+
+      &:hover { transform: translateY(-3px); }
+    }
+
     .member-photo {
       width: 84px;
       height: 84px;
@@ -398,6 +453,12 @@ section {
     }
 
     .member-name { font-weight: 700; color: var(--subic-dark); font-size: 1.05rem; margin: 0; }
+    .member-name-link {
+      color: var(--subic-dark);
+      text-decoration: none;
+      transition: color 0.2s;
+      &:hover { color: var(--subic-primary); text-decoration: underline; }
+    }
     .member-open { color: #6c757d; font-weight: 500; font-style: italic; }
     .member-role { color: var(--subic-primary); font-weight: 600; font-size: 0.9rem; }
     .member-dept { font-size: 0.8rem; color: #6c757d; }

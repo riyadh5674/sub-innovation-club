@@ -1,0 +1,183 @@
+// ============================================================
+// DARK MODE
+// ============================================================
+
+.dark-mode {
+  --subic-bg: #0f1a14;
+  --subic-surface: #1a2a20;
+  --subic-surface-2: #243529;
+  --subic-border: #2d4035;
+  --subic-text: #d8e8de;
+  --subic-text-muted: #8fa898;
+
+  body & {
+    background-color: var(--subic-bg);
+    color: var(--subic-text);
+  }
+}
+
+// Dark mode toggle button
+.theme-toggle {
+  background: none;
+  border: 2px solid var(--subic-border);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: var(--subic-dark);
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+
+  &:hover {
+    border-color: var(--subic-primary);
+    color: var(--subic-primary);
+  }
+
+  .icon-sun { display: none; }
+  .icon-moon { display: inline; }
+}
+
+// When dark mode is active
+body.dark-mode {
+  background: #0f1a14;
+  color: #d8e8de;
+
+  // Navbar
+  .club-navbar {
+    background: rgba(15, 26, 20, 0.98);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+
+    .nav-link { color: #d8e8de; &:hover { color: var(--subic-accent); } }
+    .brand-text .n { color: #fff; }
+    .brand-text .s { color: #8fa898; }
+  }
+
+  // Sections
+  section { color: #d8e8de; }
+
+  .section-eyebrow { color: var(--subic-accent); }
+  .section-title { color: #fff; }
+  .section-sub { color: #8fa898; }
+
+  // Cards
+  .mv-card,
+  .activity-card,
+  .timeline-card,
+  .member-card,
+  .card {
+    background: #1a2a20;
+    border-color: #2d4035;
+    color: #d8e8de;
+
+    h3, h4, h5 { color: #fff; }
+    p { color: #8fa898; }
+  }
+
+  .stat-box {
+    background: #1a2a20;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    .stat-label { color: #8fa898; }
+  }
+
+  // About text
+  #about-text p { color: #8fa898; }
+
+  // Mission list
+  .mission-list li { color: #b8d0c0; }
+
+  // Events
+  .events .timeline::before {
+    background: linear-gradient(var(--subic-accent), var(--subic-primary));
+  }
+
+  .event-body { color: #8fa898; }
+
+  // Contact
+  .contact .info-item .label { color: #6c8a75; }
+  .contact .info-item .value { color: #d8e8de; }
+
+  // Form inputs
+  .form-control {
+    background: #243529;
+    border-color: #2d4035;
+    color: #d8e8de;
+
+    &::placeholder { color: #6c8a75; }
+    &:focus { border-color: var(--subic-accent); box-shadow: 0 0 0 0.2rem rgba(32, 201, 151, 0.15); }
+  }
+
+  // Activities section bg
+  .activities { background: #142018; }
+  .committee { background: #142018; }
+
+  // Membership form
+  .membership-form-card {
+    background: #1a2a20;
+    border-color: #2d4035;
+  }
+
+  .step-indicator .step.active { background: var(--subic-accent); }
+  .step-indicator .step.completed { background: var(--subic-primary); }
+
+  .payment-method-card {
+    background: #243529;
+    border-color: #2d4035;
+    color: #d8e8de;
+
+    &:hover, &.selected { border-color: var(--subic-accent); }
+    .method-name { color: #fff; }
+  }
+
+  // FAQ
+  .faq-item {
+    background: #1a2a20;
+    border-color: #2d4035;
+    .faq-question { color: #d8e8de; }
+    .faq-answer { color: #8fa898; }
+    .faq-toggle { color: var(--subic-accent); }
+  }
+
+  // Testimonials
+  .testimonial-card {
+    background: #1a2a20;
+    border-color: #2d4035;
+    .testimonial-text { color: #b8d0c0; }
+    .testimonial-author { color: #d8e8de; }
+  }
+
+  // Partners
+  .partner-card { background: #1a2a20; border-color: #2d4035; }
+
+  // Blog
+  .blog-card {
+    background: #1a2a20;
+    border-color: #2d4035;
+    .blog-title { color: #fff; }
+    .blog-excerpt { color: #8fa898; }
+    .blog-date { color: var(--subic-accent); }
+  }
+
+  // Footer
+  .footer {
+    background: #0a1510;
+    .footer a { color: #8fa898; }
+  }
+
+  // Scroll to top
+  .scroll-top {
+    background: linear-gradient(135deg, var(--subic-accent), var(--subic-primary));
+  }
+
+  // Theme toggle in dark mode
+  .theme-toggle .icon-sun { display: inline; }
+  .theme-toggle .icon-moon { display: none; }
+  .theme-toggle { border-color: #3d5545; color: var(--subic-accent); }
+}
+
+// Dark mode toggle in navbar
+.theme-toggle-wrap {
+  display: flex;
+  align-items: center;
+}

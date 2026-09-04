@@ -4,24 +4,64 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="SUB Innovation Club (SUBIC) - Encouraging creativity, problem-solving, and entrepreneurship through innovation challenges and projects at the State University of Bangladesh." />
+
+  <!-- Open Graph / Social -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="SUB Innovation Club - State University of Bangladesh" />
+  <meta property="og:description" content="Encouraging creativity, problem-solving, and entrepreneurship through innovation challenges and projects." />
+  <meta property="og:image" content="https://riyadh5674.github.io/sub-innovation-club/assets/sub-logo.jpg" />
+  <meta property="og:url" content="https://riyadh5674.github.io/sub-innovation-club/" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SUB Innovation Club - State University of Bangladesh" />
+  <meta name="twitter:description" content="Encouraging creativity, problem-solving, and entrepreneurship through innovation challenges and projects." />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="/src/assets/images/sub-logo.jpg" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "SUB Innovation Club",
+    "alternateName": "SUBIC",
+    "url": "https://riyadh5674.github.io/sub-innovation-club/",
+    "logo": "https://riyadh5674.github.io/sub-innovation-club/assets/sub-logo.jpg",
+    "description": "Central innovation club at the State University of Bangladesh encouraging creativity, problem-solving, and entrepreneurship.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "696 Kendua, Kanchan, Rupganj",
+      "addressLocality": "Narayanganj",
+      "addressRegion": "Dhaka",
+      "postalCode": "1461",
+      "addressCountry": "BD"
+    },
+    "email": "innovationclub@sub.ac.bd",
+    "telephone": "+8801766662992",
+    "sameAs": [
+      "https://www.facebook.com/subinnovationclub",
+      "https://www.sub.ac.bd"
+    ]
+  }
+  </script>
+
   <title>SUB Innovation Club - State University of Bangladesh</title>
 </head>
 <body>
 
-  <!-- =====================================================
-       STYLE NOTE FOR MERGING WITH SUB SITE
-       =====================================================
-       To merge this page into the university CMS (sub.ac.bd):
-       1. Replace the <header> and <footer> sections below with
-          the live SUB site header/footer so navigation stays
-          consistent.
-       2. Keep everything inside <main> as-is - it is the club
-          content.
-       3. The compiled CSS/JS in dist/ can be added to the theme,
-          or the SCSS source can be compiled into main.css.
-      ====================================================== -->
+  <!-- ================= PRELOADER ================= -->
+  <div class="preloader" id="preloader">
+    <img class="preloader-logo" src="/src/assets/images/sub-logo.jpg" alt="SUBIC" />
+    <div class="preloader-spinner"></div>
+    <p class="preloader-text">Loading...</p>
+  </div>
 
-  <!-- SUB-style header (replace with live SUB header when merging) -->
+  <!-- ================= NAVBAR ================= -->
   <nav class="navbar navbar-expand-lg club-navbar sticky-top">
     <div class="container">
       <a class="brand" href="#home">
@@ -31,10 +71,18 @@
           <span class="s">State University of Bangladesh</span>
         </span>
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <div class="d-flex align-items-center gap-2">
+        <div class="theme-toggle-wrap d-lg-none">
+          <button class="theme-toggle" id="themeToggleMobile" aria-label="Toggle dark mode">
+            <i class="fa-solid fa-moon icon-moon"></i>
+            <i class="fa-solid fa-sun icon-sun"></i>
+          </button>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
           <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
@@ -43,9 +91,18 @@
           <li class="nav-item"><a class="nav-link" href="#events">Events</a></li>
           <li class="nav-item"><a class="nav-link" href="#committee">Committee</a></li>
           <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
           <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item d-none d-lg-block ms-lg-1">
+            <div class="theme-toggle-wrap">
+              <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <i class="fa-solid fa-moon icon-moon"></i>
+                <i class="fa-solid fa-sun icon-sun"></i>
+              </button>
+            </div>
+          </li>
           <li class="nav-item ms-lg-2">
-            <a class="btn btn-join" href="#join">Join the Club</a>
+            <a class="btn btn-join" href="#membership">Join the Club</a>
           </li>
         </ul>
       </div>
@@ -60,13 +117,13 @@
         <a class="back-sub" href="https://www.sub.ac.bd" target="_blank" rel="noopener">
           <i class="fa-solid fa-arrow-left"></i> Back to SUB
         </a>
-        <div class="hero-badge"><i class="fa-solid fa-bolt"></i> Central Club of State University of Bangladesh</div>
-        <h1 id="hero-club-name">SUB Innovation Club</h1>
-        <p class="lead" id="hero-tagline">
+        <div class="hero-badge reveal"><i class="fa-solid fa-bolt"></i> Central Club of State University of Bangladesh</div>
+        <h1 id="hero-club-name" class="reveal">SUB Innovation Club</h1>
+        <p class="lead reveal" id="hero-tagline">
           Encouraging creativity, problem-solving, and entrepreneurship through innovation challenges and projects.
         </p>
-        <div class="hero-actions">
-          <a href="#join" class="btn btn-light">Become a Member</a>
+        <div class="hero-actions reveal">
+          <a href="#membership" class="btn btn-light">Become a Member</a>
           <a href="#activities" class="btn btn-outline-light">Explore Activities</a>
         </div>
       </div>
@@ -75,7 +132,7 @@
     <!-- ================= STATS ================= -->
     <section class="stats-strip py-0">
       <div class="container">
-        <div class="row g-3" id="stats-row"></div>
+        <div class="row g-3 reveal-stagger" id="stats-row"></div>
       </div>
     </section>
 
@@ -84,15 +141,14 @@
       <div class="container">
         <div class="row g-5 align-items-center">
           <div class="col-lg-5">
-            <p class="section-eyebrow">Who We Are</p>
-            <h2 class="section-title">About the Club</h2>
-            <div class="card-icon my-3"><i class="fa-solid fa-lightbulb"></i></div>
-            <div id="about-text" class="text-muted"></div>
+            <p class="section-eyebrow reveal">Who We Are</p>
+            <h2 class="section-title reveal">About the Club</h2>
+            <div class="card-icon my-3 reveal"><i class="fa-solid fa-lightbulb"></i></div>
+            <div id="about-text" class="text-muted reveal"></div>
           </div>
           <div class="col-lg-7">
-            <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow">
-              <img id="about-image" src="" alt="SUB Innovation Club event"
-                style="object-fit:cover;" />
+            <div class="ratio ratio-4x3 rounded-4 overflow-hidden shadow reveal-scale">
+              <img id="about-image" src="" alt="SUB Innovation Club event" style="object-fit:cover;" />
             </div>
           </div>
         </div>
@@ -103,12 +159,12 @@
     <section class="mission-vision" id="mission-vision">
       <div class="container">
         <div class="text-center mb-5">
-          <p class="section-eyebrow">Our Purpose</p>
-          <h2 class="section-title">Mission &amp; Vision</h2>
+          <p class="section-eyebrow reveal">Our Purpose</p>
+          <h2 class="section-title reveal">Mission &amp; Vision</h2>
         </div>
         <div class="row g-4">
           <div class="col-lg-6">
-            <div class="mv-card">
+            <div class="mv-card reveal-left">
               <div class="mv-head">
                 <div class="card-icon"><i class="fa-solid fa-bullseye"></i></div>
                 <h3>Our Mission</h3>
@@ -117,7 +173,7 @@
             </div>
           </div>
           <div class="col-lg-6">
-            <div class="mv-card">
+            <div class="mv-card reveal-right">
               <div class="mv-head">
                 <div class="card-icon"><i class="fa-solid fa-eye"></i></div>
                 <h3>Our Vision</h3>
@@ -133,11 +189,11 @@
     <section class="activities" id="activities">
       <div class="container">
         <div class="text-center mb-5">
-          <p class="section-eyebrow">What We Do</p>
-          <h2 class="section-title">Major Activities</h2>
-          <p class="section-sub">Hands-on competitions, challenges and projects that turn ideas into real skills.</p>
+          <p class="section-eyebrow reveal">What We Do</p>
+          <h2 class="section-title reveal">Major Activities</h2>
+          <p class="section-sub reveal">Hands-on competitions, challenges and projects that turn ideas into real skills.</p>
         </div>
-        <div class="row g-4" id="activities-grid"></div>
+        <div class="row g-4 reveal-stagger" id="activities-grid"></div>
       </div>
     </section>
 
@@ -145,11 +201,11 @@
     <section class="events" id="events">
       <div class="container">
         <div class="text-center mb-5">
-          <p class="section-eyebrow">Highlights</p>
-          <h2 class="section-title">Events &amp; Highlights</h2>
-          <p class="section-sub">Recent programmes organized by the SUB Innovation Club.</p>
+          <p class="section-eyebrow reveal">Highlights</p>
+          <h2 class="section-title reveal">Events &amp; Highlights</h2>
+          <p class="section-sub reveal">Recent programmes organized by the SUB Innovation Club.</p>
         </div>
-        <div class="timeline" id="events-wrap"></div>
+        <div class="timeline reveal" id="events-wrap"></div>
       </div>
     </section>
 
@@ -157,16 +213,14 @@
     <section class="committee" id="committee">
       <div class="container">
         <div class="text-center mb-5">
-          <p class="section-eyebrow">The Team</p>
-          <h2 class="section-title">Executive Committee</h2>
-          <p class="section-sub">The students leading the club. Positions are listed below — new committee members will be announced after election.</p>
+          <p class="section-eyebrow reveal">The Team</p>
+          <h2 class="section-title reveal">Executive Committee</h2>
+          <p class="section-sub reveal">The students leading the club. Positions are listed below — new committee members will be announced after election.</p>
         </div>
-        <div class="row g-4 justify-content-center" id="committee-grid"></div>
-
-        <!-- Advisors -->
+        <div class="row g-4 justify-content-center reveal-stagger" id="committee-grid"></div>
         <div id="advisors-section">
-          <h3 class="text-center section-title mt-5 mb-4" style="font-size:1.4rem;">Convenor &amp; Advisors</h3>
-          <div class="row g-4 justify-content-center" id="advisors-grid"></div>
+          <h3 class="text-center section-title mt-5 mb-4 reveal" style="font-size:1.4rem;">Convenor &amp; Advisors</h3>
+          <div class="row g-4 justify-content-center reveal-stagger" id="advisors-grid"></div>
         </div>
       </div>
     </section>
@@ -175,21 +229,386 @@
     <section class="gallery" id="gallery">
       <div class="container">
         <div class="text-center mb-5">
-          <p class="section-eyebrow">Moments</p>
-          <h2 class="section-title">Photo Gallery</h2>
-          <p class="section-sub">Glimpses from our events and activities.</p>
+          <p class="section-eyebrow reveal">Moments</p>
+          <h2 class="section-title reveal">Photo Gallery</h2>
+          <p class="section-sub reveal">Glimpses from our events and activities.</p>
         </div>
-        <div class="row g-3" id="gallery-grid"></div>
+        <div class="row g-3 reveal-stagger" id="gallery-grid"></div>
+      </div>
+    </section>
+
+    <!-- ================= TESTIMONIALS ================= -->
+    <section class="testimonials-section" id="testimonials">
+      <div class="container">
+        <div class="text-center mb-5">
+          <p class="section-eyebrow reveal">What Members Say</p>
+          <h2 class="section-title reveal">Testimonials</h2>
+          <p class="section-sub reveal">Hear from our members about their experience with SUBIC.</p>
+        </div>
+        <div class="row g-4 reveal-stagger" id="testimonials-grid"></div>
+      </div>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <div class="text-center mb-5">
+          <p class="section-eyebrow reveal">Got Questions?</p>
+          <h2 class="section-title reveal">Frequently Asked Questions</h2>
+          <p class="section-sub reveal">Everything you need to know about joining and being part of SUBIC.</p>
+        </div>
+        <div class="faq-list reveal" id="faqList" style="max-width:720px;margin:0 auto;"></div>
+      </div>
+    </section>
+
+    <!-- ================= PARTNERS ================= -->
+    <section class="partners-section" id="partners">
+      <div class="container">
+        <div class="text-center mb-5">
+          <p class="section-eyebrow reveal">Our Community</p>
+          <h2 class="section-title reveal">Partners &amp; Affiliations</h2>
+        </div>
+        <div class="partners-grid reveal" id="partnersGrid"></div>
+      </div>
+    </section>
+
+    <!-- ================= BLOG / ANNOUNCEMENTS ================= -->
+    <section class="blog-section" id="blog">
+      <div class="container">
+        <div class="text-center mb-5">
+          <p class="section-eyebrow reveal">Latest Updates</p>
+          <h2 class="section-title reveal">News &amp; Announcements</h2>
+        </div>
+        <div class="row g-4 reveal-stagger" id="blogGrid"></div>
+      </div>
+    </section>
+
+    <!-- ================= MEMBERSHIP FORM ================= -->
+    <section class="membership-section" id="membership">
+      <div class="container">
+        <div class="text-center mb-5">
+          <p class="section-eyebrow reveal">Join Us</p>
+          <h2 class="section-title reveal">Become a Member</h2>
+          <p class="section-sub reveal">Fill out the form below to apply for SUB Innovation Club membership. Fee: <strong>৳300</strong></p>
+        </div>
+
+        <div class="membership-form-card reveal-scale" id="membershipFormCard">
+          <!-- Step Indicator -->
+          <div class="step-indicator">
+            <div class="step active" data-step="1">1</div>
+            <div class="step" data-step="2">2</div>
+            <div class="step" data-step="3">3</div>
+            <div class="step" data-step="4">4</div>
+            <div class="step" data-step="5">5</div>
+            <div class="step" data-step="6">6</div>
+          </div>
+
+          <form id="membershipForm" enctype="multipart/form-data">
+            <!-- STEP 1: Personal Information -->
+            <div class="form-step active" id="step1">
+              <h4 class="form-step-title">Personal Information</h4>
+              <p class="form-step-subtitle">Tell us about yourself</p>
+
+              <div class="row g-3">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label>Full Name <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="memberName" name="fullName" placeholder="As per university records" required />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Student ID <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="memberStudentId" name="studentId" placeholder="XXX-XX-XXXX" required />
+                    <div class="form-text">Format: 123-45-6789</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Date of Birth <span class="required">*</span></label>
+                    <input type="date" class="form-control" id="memberDob" name="dob" required />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Gender <span class="required">*</span></label>
+                    <select class="form-select" id="memberGender" name="gender" required>
+                      <option value="">Select...</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Blood Group</label>
+                    <select class="form-select" id="memberBloodGroup" name="bloodGroup">
+                      <option value="">Select...</option>
+                      <option>A+</option><option>A-</option>
+                      <option>B+</option><option>B-</option>
+                      <option>AB+</option><option>AB-</option>
+                      <option>O+</option><option>O-</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Photo</label>
+                    <div class="photo-upload">
+                      <div class="photo-preview" id="photoPreview">
+                        <i class="fa-solid fa-camera" id="photoPlaceholder"></i>
+                        <img id="photoPreviewImg" src="" alt="Preview" style="display:none;" />
+                      </div>
+                      <div class="photo-upload-btn">
+                        <input type="file" id="memberPhoto" name="photo" accept="image/*" />
+                        <button type="button" class="btn btn-outline-primary btn-sm">Choose Photo</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-nav">
+                <div></div>
+                <button type="button" class="btn btn-join" data-next-step>Next <i class="fa-solid fa-arrow-right ms-1"></i></button>
+              </div>
+            </div>
+
+            <!-- STEP 2: Academic Information -->
+            <div class="form-step" id="step2">
+              <h4 class="form-step-title">Academic Information</h4>
+              <p class="form-step-subtitle">Your academic details at SUB</p>
+
+              <div class="row g-3">
+                <div class="col-12">
+                  <div class="form-group">
+                    <label>Department <span class="required">*</span></label>
+                    <select class="form-select" id="memberDept" name="department" required>
+                      <option value="">Select your department...</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Batch <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="memberBatch" name="batch" placeholder="e.g., 47" required />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Semester <span class="required">*</span></label>
+                    <select class="form-select" id="memberSemester" name="semester" required>
+                      <option value="">Select...</option>
+                      <option>1st</option><option>2nd</option><option>3rd</option><option>4th</option>
+                      <option>5th</option><option>6th</option><option>7th</option><option>8th</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>Session <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="memberSession" name="session" placeholder="e.g., 2023-24" required />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-nav">
+                <button type="button" class="btn btn-outline-secondary" data-prev-step><i class="fa-solid fa-arrow-left me-1"></i> Back</button>
+                <button type="button" class="btn btn-join" data-next-step>Next <i class="fa-solid fa-arrow-right ms-1"></i></button>
+              </div>
+            </div>
+
+            <!-- STEP 3: Contact & Emergency -->
+            <div class="form-step" id="step3">
+              <h4 class="form-step-title">Contact Information</h4>
+              <p class="form-step-subtitle">How can we reach you?</p>
+
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Personal Email <span class="required">*</span></label>
+                    <input type="email" class="form-control" id="memberEmail" name="email" placeholder="you@example.com" required />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Phone Number <span class="required">*</span></label>
+                    <input type="tel" class="form-control" id="memberPhone" name="phone" placeholder="+880 1XXXXXXXXX" required />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>WhatsApp Number</label>
+                    <input type="tel" class="form-control" id="memberWhatsapp" name="whatsapp" placeholder="+880 1XXXXXXXXX" />
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group">
+                    <label>Current Address <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="memberAddress" name="address" placeholder="Your current address in Dhaka" required />
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-group">
+                    <label>Emergency Contact (Name & Phone) <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="memberEmergency" name="emergencyContact" placeholder="e.g., Father - +880 1XXXXXXXXX" required />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-nav">
+                <button type="button" class="btn btn-outline-secondary" data-prev-step><i class="fa-solid fa-arrow-left me-1"></i> Back</button>
+                <button type="button" class="btn btn-join" data-next-step>Next <i class="fa-solid fa-arrow-right ms-1"></i></button>
+              </div>
+            </div>
+
+            <!-- STEP 4: Interests & Skills -->
+            <div class="form-step" id="step4">
+              <h4 class="form-step-title">Skills & Interests</h4>
+              <p class="form-step-subtitle">What excites you? Select all that apply.</p>
+
+              <div class="form-group">
+                <label>Areas of Interest <span class="required">*</span></label>
+                <div class="interests-grid" id="interestsGrid"></div>
+              </div>
+
+              <div class="form-group">
+                <label>Why do you want to join SUBIC? <span class="required">*</span></label>
+                <textarea class="form-control" id="memberMotivation" name="motivation" rows="3" placeholder="Tell us what motivates you to join the club..." required></textarea>
+              </div>
+
+              <div class="row g-3">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label>Previous Club / Organization Experience</label>
+                    <textarea class="form-control" id="memberExperience" name="experience" rows="2" placeholder="Any previous leadership or club experience..."></textarea>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <label>LinkedIn / Portfolio URL</label>
+                    <input type="url" class="form-control" id="memberLinkedin" name="linkedin" placeholder="https://" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-nav">
+                <button type="button" class="btn btn-outline-secondary" data-prev-step><i class="fa-solid fa-arrow-left me-1"></i> Back</button>
+                <button type="button" class="btn btn-join" data-next-step>Next <i class="fa-solid fa-arrow-right ms-1"></i></button>
+              </div>
+            </div>
+
+            <!-- STEP 5: Payment -->
+            <div class="form-step" id="step5">
+              <h4 class="form-step-title">Membership Payment</h4>
+              <p class="form-step-subtitle">Complete your payment to finalize your application</p>
+
+              <div class="fee-display">
+                <div class="fee-label">Membership Fee</div>
+                <div class="fee-amount">৳300</div>
+                <div class="fee-label">One-time payment for the academic year</div>
+              </div>
+
+              <div class="form-group">
+                <label>Select Payment Method <span class="required">*</span></label>
+                <div class="payment-methods">
+                  <div class="payment-method-card selected" data-method="bkash">
+                    <div class="method-icon"><i class="fa-solid fa-mobile-screen-button"></i></div>
+                    <div class="method-name">bKash</div>
+                  </div>
+                  <div class="payment-method-card" data-method="nagad">
+                    <div class="method-icon"><i class="fa-solid fa-wallet"></i></div>
+                    <div class="method-name">Nagad</div>
+                  </div>
+                  <div class="payment-method-card" data-method="rocket">
+                    <div class="method-icon"><i class="fa-solid fa-rocket"></i></div>
+                    <div class="method-name">Rocket</div>
+                  </div>
+                  <div class="payment-method-card" data-method="bank">
+                    <div class="method-icon"><i class="fa-solid fa-building-columns"></i></div>
+                    <div class="method-name">Bank Transfer</div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="paymentInstructions"></div>
+
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Transaction ID <span class="required">*</span></label>
+                    <input type="text" class="form-control" id="txnId" name="txnId" placeholder="Enter transaction ID from your payment" required />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Payment Screenshot</label>
+                    <div class="file-upload-area" id="screenshotUploadArea">
+                      <input type="file" id="paymentScreenshot" name="paymentScreenshot" accept="image/*" />
+                      <div class="upload-icon"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                      <div class="upload-text"><strong>Click to upload</strong> or drag and drop<br>PNG, JPG up to 5MB</div>
+                    </div>
+                    <div class="upload-preview" id="screenshotPreview" style="display:none;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-nav">
+                <button type="button" class="btn btn-outline-secondary" data-prev-step><i class="fa-solid fa-arrow-left me-1"></i> Back</button>
+                <button type="button" class="btn btn-join" data-next-step>Review <i class="fa-solid fa-arrow-right ms-1"></i></button>
+              </div>
+            </div>
+
+            <!-- STEP 6: Review & Submit -->
+            <div class="form-step" id="step6">
+              <h4 class="form-step-title">Review Your Application</h4>
+              <p class="form-step-subtitle">Please verify all information before submitting</p>
+
+              <div class="review-summary" id="reviewContent"></div>
+
+              <div class="terms-check">
+                <input type="checkbox" id="termsCheck" />
+                <label for="termsCheck">
+                  I confirm that all information provided is accurate. I agree to the
+                  <a href="#" onclick="event.preventDefault()">Terms & Conditions</a> and
+                  <a href="#" onclick="event.preventDefault()">Code of Conduct</a> of the SUB Innovation Club.
+                </label>
+              </div>
+
+              <div class="form-nav">
+                <button type="button" class="btn btn-outline-secondary" data-prev-step><i class="fa-solid fa-arrow-left me-1"></i> Back</button>
+                <button type="button" class="btn btn-join btn-lg" id="submitBtn">
+                  <i class="fa-solid fa-paper-plane me-2"></i>Submit Application
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <!-- Success State -->
+          <div class="membership-success" id="membershipSuccess" style="display:none;">
+            <div class="success-icon"><i class="fa-solid fa-check"></i></div>
+            <h3>Application Submitted!</h3>
+            <p class="text-muted">Thank you for applying to the SUB Innovation Club.</p>
+            <p>Your reference number:</p>
+            <div class="ref-number" id="refNumber"></div>
+            <p class="mt-3" style="font-size:0.9rem;color:#6c757d;">
+              Our team will verify your payment and application within <strong>48 hours</strong>.<br/>
+              You will receive a confirmation via email and WhatsApp.
+            </p>
+            <a href="#home" class="btn btn-join mt-3">Back to Home</a>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ================= JOIN CTA ================= -->
     <section class="pb-5 pt-0" id="join">
       <div class="container">
-        <div class="join-cta text-center">
+        <div class="join-cta text-center reveal-scale">
           <h3>Ready to innovate?</h3>
           <p class="lead mb-4">Join the SUB Innovation Club and turn your ideas into impact.</p>
-          <a class="btn btn-light btn-lg" href="#contact">Get in Touch</a>
+          <a class="btn btn-light btn-lg" href="#membership">Become a Member</a>
         </div>
       </div>
     </section>
@@ -198,11 +617,11 @@
     <section class="contact" id="contact">
       <div class="container">
         <div class="text-center mb-5">
-          <p class="section-eyebrow">Find Us</p>
-          <h2 class="section-title">Contact the Club</h2>
+          <p class="section-eyebrow reveal">Find Us</p>
+          <h2 class="section-title reveal">Contact the Club</h2>
         </div>
         <div class="row g-4 justify-content-center">
-          <div class="col-lg-6">
+          <div class="col-lg-6 reveal-left">
             <div class="info-item">
               <div class="icon"><i class="fa-solid fa-envelope"></i></div>
               <div>
@@ -226,7 +645,7 @@
             </div>
             <div class="social-links" id="social-links"></div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-lg-6 reveal-right">
             <div class="card border-0 shadow-sm p-4 h-100">
               <h5 class="mb-3">Send us a message</h5>
               <form onsubmit="return false;">
@@ -248,7 +667,7 @@
     </section>
   </main>
 
-  <!-- ===== SUB-style footer (replace with live SUB footer when merging) ===== -->
+  <!-- ================= FOOTER ================= -->
   <footer class="footer">
     <div class="container">
       <div class="row g-4">
@@ -269,6 +688,7 @@
             <li><a class="text-decoration-none" href="#activities">Activities</a></li>
             <li><a class="text-decoration-none" href="#events">Events</a></li>
             <li><a class="text-decoration-none" href="#committee">Committee</a></li>
+            <li><a class="text-decoration-none" href="#membership">Join the Club</a></li>
             <li><a class="text-decoration-none" href="https://www.sub.ac.bd" target="_blank" rel="noopener">SUB Main Website</a></li>
           </ul>
         </div>

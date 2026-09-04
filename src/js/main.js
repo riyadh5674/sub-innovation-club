@@ -4,6 +4,9 @@ import '@fortawesome/fontawesome-free/scss/solid.scss';
 import '@fortawesome/fontawesome-free/scss/brands.scss';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { clubData } from '../data/club-data.js';
+import { initAnimations } from './animations.js';
+import { initDarkMode } from './darkmode.js';
+import { initMembership } from './membership.js';
 
 /*  =============================================
     SUB Innovation Club - page renderer
@@ -11,8 +14,6 @@ import { clubData } from '../data/club-data.js';
     into the page. Edit club-data.js to update the
     site - no need to touch HTML.
     ============================================= */
-
-const DATA_KEY = 'subic_page_data';
 
 function initials(name) {
   const clean = String(name || '?').trim();
@@ -31,15 +32,28 @@ function avatarHtml(member) {
 
 function memberCard(member) {
   const hasName = Boolean(member.name && member.name.trim());
-  const nameHtml = hasName
+
+  /* If the member has a profile URL, make the photo+name clickable */
+  let avatarContent = hasName
+    ? avatarHtml(member)
+    : '<span class="member-photo member-initials member-open-avatar"><i class="fa-solid fa-user-plus"></i></span>';
+
+  let nameHtml = hasName
     ? `<h4 class="member-name">${member.name}</h4>` +
       (member.dept ? `<p class="member-dept">${member.dept}</p>` : '')
     : `<h4 class="member-name member-open">Open Position</h4>
        <p class="member-dept">To be announced</p>`;
+
+  if (member.url) {
+    avatarContent = `<a href="${member.url}" target="_blank" rel="noopener" title="View ${member.name}'s profile">${avatarContent}</a>`;
+    nameHtml = `<h4 class="member-name"><a href="${member.url}" target="_blank" rel="noopener" class="member-name-link">${member.name}</a></h4>` +
+      (member.dept ? `<p class="member-dept">${member.dept}</p>` : '');
+  }
+
   return `
     <div class="col-6 col-md-4 col-lg-3">
       <div class="member-card">
-        <div class="member-avatar">${hasName ? avatarHtml(member) : '<span class="member-photo member-initials member-open-avatar"><i class="fa-solid fa-user-plus"></i></span>'}</div>
+        <div class="member-avatar">${avatarContent}</div>
         <p class="member-role">${member.role}</p>
         ${nameHtml}
       </div>
@@ -62,14 +76,14 @@ function render(data) {
   document.getElementById('hero-club-name').textContent = data.name;
   document.getElementById('hero-tagline').textContent = data.tagline;
 
-  /* Stats */
+  /* Stats (with data-target for counter animation) */
   const statsRow = document.getElementById('stats-row');
   statsRow.innerHTML = data.stats
     .map(
       (s) => `
       <div class="col-6 col-lg-3">
         <div class="stat-box">
-          <span class="stat-value">${s.value}</span>
+          <span class="stat-value" data-target="${s.value}" data-suffix="${s.suffix || ''}">${s.value}${s.suffix || ''}</span>
           <span class="stat-label">${s.label}</span>
         </div>
       </div>`
@@ -156,7 +170,84 @@ function render(data) {
       })
       .join('');
   } else {
-    document.getElementById('gallery-section').style.display = 'none';
+    const gallerySection = document.getElementById('gallery-section');
+    if (gallerySection) gallerySection.style.display = 'none';
+  }
+
+  /* Testimonials */
+  const testimonialsGrid = document.getElementById('testimonials-grid');
+  if (data.testimonials && data.testimonials.length) {
+    testimonialsGrid.innerHTML = data.testimonials
+      .map(
+        (t) => `
+      <div class="col-md-4">
+        <div class="testimonial-card">
+          <div class="testimonial-quote">&ldquo;</div>
+          <p class="testimonial-text">${t.text}</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">${initials(t.name)}</div>
+            <div class="author-info">
+              <div class="author-name">${t.name}</div>
+              <div class="author-role">${t.dept}</div>
+            </div>
+          </div>
+        </div>
+      </div>`
+      )
+      .join('');
+  }
+
+  /* FAQ */
+  const faqList = document.getElementById('faqList');
+  if (data.faq && data.faq.length) {
+    faqList.innerHTML = data.faq
+      .map(
+        (f, i) => `
+      <div class="faq-item" data-faq="${i}">
+        <button class="faq-question" type="button" aria-expanded="false" onclick="toggleFaq(${i})">
+          <span>${f.q}</span>
+          <span class="faq-toggle"><i class="fa-solid fa-chevron-down"></i></span>
+        </button>
+        <div class="faq-answer">${f.a}</div>
+      </div>`
+      )
+      .join('');
+  }
+
+  /* Partners */
+  const partnersGrid = document.getElementById('partnersGrid');
+  if (data.partners && data.partners.length) {
+    partnersGrid.innerHTML = data.partners
+      .map(
+        (p) => `
+      <div class="partner-card">
+        ${p.url ? `<a href="${p.url}" target="_blank" rel="noopener"><img src="${p.url}" alt="${p.name}" /></a>` : `<span class="partner-name">${p.name}</span>`}
+      </div>`
+      )
+      .join('');
+  }
+
+  /* Blog */
+  const blogGrid = document.getElementById('blogGrid');
+  if (data.blog && data.blog.length) {
+    blogGrid.innerHTML = data.blog
+      .map(
+        (b) => `
+      <div class="col-md-4">
+        <div class="blog-card">
+          <div class="blog-image">
+            <img src="${b.image}" alt="${b.title}" loading="lazy" />
+          </div>
+          <div class="blog-body">
+            <span class="blog-date">${b.date}</span>
+            <h4 class="blog-title">${b.title}</h4>
+            <p class="blog-excerpt">${b.excerpt}</p>
+            <span class="blog-tag">${b.tag}</span>
+          </div>
+        </div>
+      </div>`
+      )
+      .join('');
   }
 
   /* Contacts */
@@ -164,8 +255,6 @@ function render(data) {
   document.getElementById('contact-email').textContent = c.email || 'TBD';
   document.getElementById('contact-phone').textContent = c.phone || 'TBD';
   document.getElementById('contact-location').textContent = c.location || 'TBD';
-  if (c.whatsapp) document.getElementById('contact-whatsapp').href = c.whatsapp;
-  if (c.facebook) document.getElementById('contact-facebook').href = c.facebook;
 
   const socials = [
     c.facebook && { href: c.facebook, icon: 'fa-brands fa-facebook-f' },
@@ -182,7 +271,7 @@ function render(data) {
   if (footerSocial) footerSocial.innerHTML = socialMarkup;
 }
 
-/* -- Lightbox + scroll helpers ----------------------------------------- */
+/* -- Lightbox ----------------------------------------- */
 
 document.addEventListener('click', (e) => {
   const item = e.target.closest('[data-lightbox]');
@@ -199,7 +288,17 @@ function showLightbox(src, caption = '') {
   document.body.appendChild(overlay);
 }
 
-/* Scroll-to-top button */
+/* -- FAQ toggle --------------------------------------- */
+window.toggleFaq = function (index) {
+  const item = document.querySelector(`.faq-item[data-faq="${index}"]`);
+  if (!item) return;
+  const isOpen = item.classList.contains('open');
+  // close all
+  document.querySelectorAll('.faq-item').forEach((el) => el.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+};
+
+/* -- Scroll-to-top ------------------------------------ */
 const scrollTopBtn = document.getElementById('scrollTopBtn');
 window.addEventListener('scroll', () => {
   if (scrollTopBtn) scrollTopBtn.style.display = window.scrollY > 400 ? 'grid' : 'none';
@@ -208,7 +307,7 @@ if (scrollTopBtn) {
   scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
 
-/* Navbar collapse close on link click */
+/* -- Navbar collapse close on link click -------------- */
 document.querySelectorAll('.navbar .nav-link').forEach((link) => {
   link.addEventListener('click', () => {
     const collapse = document.getElementById('navbarNav');
@@ -218,7 +317,7 @@ document.querySelectorAll('.navbar .nav-link').forEach((link) => {
   });
 });
 
-/* Smooth scroll for anchor links */
+/* -- Smooth scroll for anchor links ------------------- */
 document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener('click', function (e) {
     const target = document.querySelector(this.getAttribute('href'));
@@ -229,5 +328,44 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   });
 });
 
-/* Init */
+/* -- Preloader ---------------------------------------- */
+function hidePreloader() {
+  const preloader = document.getElementById('preloader');
+  if (preloader) {
+    preloader.classList.add('hidden');
+    setTimeout(() => preloader.remove(), 600);
+  }
+}
+
+/* -- Init --------------------------------------------- */
 render(clubData);
+initAnimations();
+initDarkMode();
+initMembership();
+
+// Sync mobile dark mode toggle
+const mobileToggle = document.getElementById('themeToggleMobile');
+if (mobileToggle) {
+  mobileToggle.addEventListener('click', () => {
+    const isDark = document.body.classList.toggle('dark-mode');
+    localStorage.setItem('subic_theme', isDark ? 'dark' : 'light');
+    // Sync both toggles
+    const desktopToggle = document.getElementById('themeToggle');
+    if (desktopToggle) {
+      const sun = desktopToggle.querySelector('.icon-sun');
+      const moon = desktopToggle.querySelector('.icon-moon');
+      if (sun && moon) {
+        sun.style.display = isDark ? 'inline' : 'none';
+        moon.style.display = isDark ? 'none' : 'inline';
+      }
+    }
+    const mSun = mobileToggle.querySelector('.icon-sun');
+    const mMoon = mobileToggle.querySelector('.icon-moon');
+    if (mSun && mMoon) {
+      mSun.style.display = isDark ? 'inline' : 'none';
+      mMoon.style.display = isDark ? 'none' : 'inline';
+    }
+  });
+}
+
+window.addEventListener('load', hidePreloader);

@@ -30,10 +30,11 @@ university's existing Bootstrap-based website.
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Editing content](#editing-content)
+- [Online Membership System](#online-membership-system)
+- [Configuring Formspree](#configuring-formspree)
 - [Building for production](#building-for-production)
 - [Deployment](#deployment)
 - [Merging into the university site](#merging-into-the-university-site)
-- [Roadmap](#roadmap)
 - [License](#license)
 
 ---
@@ -51,7 +52,7 @@ incorporated: the Convenor, recent workshops, and flagship activities.
 
 ## Features
 
-- 🎯 **Hero** with tagline + key stats strip
+- 🎯 **Hero** with animated tagline + key stats strip
 - 📖 **About** the club
 - 🧭 **Mission & Vision**
 - 🧩 **Major Activities** — all 8 flagship competitions and challenges
@@ -59,11 +60,17 @@ incorporated: the Convenor, recent workshops, and flagship activities.
 - 👥 **Executive Committee** — editable member cards (data-driven)
 - 🧑‍🏫 **Convenor & Advisors**
 - 🖼️ **Photo Gallery** with lightbox
-- ✉️ **Join / Contact** section with form and social links
-- 💬 Floating WhatsApp button and scroll-to-top button
-- 🎨 **SUB-branded styling** on a Bootstrap 5 foundation — color palette extracted
-  from the original `sub.ac.bd` stylesheets (primary green `#198754`) with a
-  creative teal-green accent (`#20c997`)
+- 💬 **Floating WhatsApp button** and scroll-to-top button
+- 🎨 **SUB-branded styling** on a Bootstrap 5 foundation
+- 🌙 **Dark mode toggle** with `localStorage` persistence
+- 📊 **Animated stat counters** that count up on scroll
+- ✨ **Scroll-reveal animations** on all sections
+- 🎞️ **Preloader** with SUB logo animation
+- 📋 **FAQ accordion** with 8 common questions
+- 💬 **Testimonials** from club members
+- 🤝 **Partners & Affiliations** section
+- 📰 **News & Announcements** blog-style cards
+- 🏆 **Online Membership System** — multi-step registration with online payment
 
 ## Live preview
 
@@ -75,19 +82,25 @@ The project is automatically deployed to GitHub Pages on every push to `main`:
 
 ```
 sub-innovation-club/
-├── index.html              # Page structure (hero, about, activities, events,
-│                           #   committee, gallery, join, contact) inside a
-│                           #   SUB-style header/nav/footer wrapper
+├── index.html                 # Page structure + membership form
 ├── src/
 │   ├── data/
-│   │   └── club-data.js    # ★ ALL editable content lives here ★
+│   │   └── club-data.js       # ★ ALL editable content lives here ★
 │   ├── js/
-│   │   └── main.js         # Renders data into the page + interactivity
+│   │   ├── main.js            # Page renderer + init
+│   │   ├── membership.js      # Multi-step membership form logic
+│   │   ├── animations.js      # Scroll reveal, counters, parallax
+│   │   └── darkmode.js        # Dark mode toggle
 │   └── scss/
-│       └── main.scss       # Bootstrap 5 + SUB/brand styling
+│       ├── main.scss          # Main stylesheet (imports all partials)
+│       ├── _preloader.scss    # Preloader styles
+│       ├── _animations.scss   # Reveal/counter/parallax keyframes
+│       ├── _sections.scss     # FAQ, testimonials, partners, blog
+│       ├── _membership.scss   # Membership form styles
+│       └── _dark.scss         # Dark mode overrides
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml      # GitHub Actions → GitHub Pages deployment
+│       └── deploy.yml         # GitHub Actions → GitHub Pages
 ├── vite.config.js
 └── README.md
 ```
@@ -102,10 +115,7 @@ sub-innovation-club/
 ### Installation
 
 ```bash
-# 1. Install dependencies
 npm install
-
-# 2. Start the dev server (http://localhost:5173)
 npm run dev
 ```
 
@@ -127,19 +137,59 @@ Edit the values there and rebuild — no HTML or JS changes required.
 | Key stats | `clubData.stats` |
 | Activities | `clubData.activities` |
 | Events / highlights | `clubData.events` |
-| **Executive committee** | `clubData.committee` — placeholders, fill in real members |
+| Executive committee | `clubData.committee` — placeholders, fill in real members |
 | Convenor / advisors | `clubData.advisors` |
 | Photo gallery | `clubData.gallery` |
-| Email / phone / WhatsApp / socials | `clubData.contacts` |
+| FAQ questions & answers | `clubData.faq` |
+| Testimonials | `clubData.testimonials` |
+| Partners / sponsors | `clubData.partners` |
+| Blog / announcements | `clubData.blog` |
+| Membership fee | `clubData.membershipFee` |
+| Departments dropdown | `clubData.departments` |
+| Interest checkboxes | `clubData.interests` |
+| Payment instructions | `clubData.paymentInstructions` |
+| Contact & social | `clubData.contacts` |
 
-> **Note:** The *Executive Committee* names are placeholders until the real
-> members are published. Fill them in `clubData.committee`; add a `photo` URL
-> or leave it blank to show an auto-generated initials avatar.
+## Online Membership System
 
-Real details already included: Convenor **Md. Samiul Islam** (Asst. Prof., CSE),
-the **Freelancing for Everyone** workshop (13 May 2025), and the **25 May 2025**
-club election. The About image and photo gallery use **real event photos**
-pulled from the club's Facebook page, hosted locally so they never break.
+The site includes a complete online membership application system with:
+
+- **6-step profession form:**
+  1. **Personal Information** — Name, Student ID, Photo, DOB, Gender, Blood Group
+  2. **Academic Information** — Department, Batch, Semester, Session
+  3. **Contact Information** — Email, Phone, WhatsApp, Address, Emergency Contact
+  4. **Skills & Interests** — Interest checkboxes, motivation, experience
+  5. **Payment** — bKash/Nagad/Rocket/Bank with payment instructions + transaction ID + screenshot
+  6. **Review & Submit** — Summary of all entered data + Terms & Conditions
+
+- **Online fee payment** — ৳300 via bKash, Nagad, Rocket, or bank transfer
+- **Real-time validation** — Form validates fields like student ID pattern, email, phone
+- **Formspree integration** — Submissions are emailed to the club automatically
+- **Confirmation page** — Success message with reference number
+
+### Payment methods accepted
+
+| Method | Number |
+|--------|--------|
+| bKash | 01766-662992 |
+| Nagad | 01766-662992 |
+| Rocket | 01766-662992 |
+| Bank | Contact club for details |
+
+## Configuring Formspree
+
+The membership form uses [Formspree](https://formspree.io) (free tier, no signup limits) to deliver
+submissions to your email.
+
+1. Create a free account at [formspree.io](https://formspree.io)
+2. Create a new form and copy your form ID (e.g., `xdennkvw`)
+3. Open `src/js/membership.js` and replace the endpoint:
+
+```js
+const resp = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+```
+
+4. Rebuild and deploy.
 
 ## Building for production
 
@@ -147,9 +197,6 @@ pulled from the club's Facebook page, hosted locally so they never break.
 npm run build
 npm run preview
 ```
-
-The compiled static site is written to `dist/` and is ready to host anywhere
-(no backend required).
 
 ## Deployment
 
@@ -159,27 +206,13 @@ Deployment is fully automated with **GitHub Actions**. On every push to `main`:
 2. The `dist/` output is uploaded as a Pages artifact.
 3. It is published to GitHub Pages.
 
-The workflow lives at [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml).
-No manual steps are required after the initial Pages enablement.
-
 ## Merging into the university site (sub.ac.bd)
-
-The page was designed so the club content can be dropped into the university CMS:
 
 1. Run `npm run build` to produce the compiled `dist/` files.
 2. In the CMS page, replace the `<header>` and `<footer>` blocks in `index.html`
-   with the **live SUB site header/footer** so navigation and branding stay consistent.
+   with the **live SUB site header/footer**.
 3. Keep all content inside `<main>…</main>` — that is the club page.
-4. Add the compiled CSS and JS to the theme, or compile `src/scss/main.scss`
-   into the site's stylesheet.
-
-## Roadmap
-
-- [ ] Fill in the real executive committee once the members are published
-- [ ] Add more real event photos (Hackathon, Robotics, Treasure Hunt, etc.)
-- [ ] Wire the contact form to a mail service
-- [ ] Add a news/announcements block
-- [ ] Add a light/dark theme toggle (optional)
+4. Add the compiled CSS and JS to the theme, or compile `src/scss/main.scss`.
 
 ## License
 
