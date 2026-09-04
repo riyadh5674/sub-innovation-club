@@ -338,10 +338,10 @@ function hidePreloader() {
 }
 
 /* -- Init --------------------------------------------- */
-render(clubData);
-initAnimations();
-initDarkMode();
-initMembership();
+try { render(clubData); } catch (e) { console.error('render failed', e); }
+try { initAnimations(); } catch (e) { console.error('animations failed', e); }
+try { initDarkMode(); } catch (e) { console.error('darkmode failed', e); }
+try { initMembership(); } catch (e) { console.error('membership init failed', e); }
 
 // Sync mobile dark mode toggle
 const mobileToggle = document.getElementById('themeToggleMobile');

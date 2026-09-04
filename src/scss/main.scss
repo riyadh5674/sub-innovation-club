@@ -53,6 +53,14 @@ h1, h2, h3, h4, h5, h6,
 
 html { scroll-behavior: smooth; }
 
+/* Global brand logo sizing (navbar + footer) so the logo never renders at natural size */
+.brand-logo {
+  height: 46px;
+  width: auto;
+  max-width: 200px;
+  display: block;
+}
+
 section {
   padding: 72px 0;
   transition: background-color 0.3s ease;
@@ -111,7 +119,6 @@ section {
       height: 46px;
       width: auto;
       display: block;
-      mix-blend-mode: multiply;
     }
 
     .brand-text {
@@ -538,6 +545,10 @@ section {
   background: #0d3d23;
   color: #cfe8d8;
   padding: 3rem 0;
+
+  .brand-logo {
+    mix-blend-mode: multiply;
+  }
 
   .brand-text .n { color: #fff; }
   .brand-text .s { color: #a9cfb8; }

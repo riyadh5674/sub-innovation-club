@@ -11,26 +11,45 @@ export function initAnimations() {
 function initScrollReveal() {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) {
-    document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => {
-      el.classList.add('revealed');
-    });
+    revealAll();
     return;
   }
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-  );
+  // Fail-safe: reveal everything shortly after load regardless, so no
+  // content is ever left invisible (e.g. if IntersectionObserver errors).
+  setTimeout(revealAll, 1500);
+
+  if (!('IntersectionObserver' in window)) {
+    revealAll();
+    return;
+  }
+
+  let observer;
+  try {
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+  } catch (e) {
+    revealAll();
+    return;
+  }
 
   document.querySelectorAll('.reveal, .reveal-stagger, .reveal-left, .reveal-right, .reveal-scale').forEach((el) => {
     observer.observe(el);
+  });
+}
+
+function revealAll() {
+  document.querySelectorAll('.reveal, .reveal-stagger, .reveal-left, .reveal-right, .reveal-scale').forEach((el) => {
+    el.classList.add('revealed');
   });
 }
 

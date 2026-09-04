@@ -54,6 +54,13 @@ body.dark-mode {
     .brand-text .s { color: #8fa898; }
   }
 
+  // Make the white logo background transparent only in dark mode
+  .brand-logo,
+  .footer .brand-logo {
+    mix-blend-mode: multiply;
+    filter: none;
+  }
+
   // Sections
   section { color: #d8e8de; }
 
