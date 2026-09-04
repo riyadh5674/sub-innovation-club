@@ -109,10 +109,10 @@ function validateStep(step) {
     }
   });
 
-  // Student ID pattern
+  // Student ID pattern (e.g., UG02-66-25-007 or PG-00-00-00-000)
   const sidInput = stepEl.querySelector('#memberStudentId');
-  if (sidInput && sidInput.value && !/^\d{3}-\d{2}-\d{4}$/.test(sidInput.value)) {
-    showError(sidInput, 'Format: XXX-XX-XXXX (e.g., 123-45-6789)');
+  if (sidInput && sidInput.value && !/^(UG|PG)-\d{2}-\d{2}-\d{2}-\d{3}$/.test(sidInput.value)) {
+    showError(sidInput, 'Format: UGxx-xx-xx-xxx or PG-xx-xx-xx-xxx (e.g., UG02-66-25-007)');
     valid = false;
   }
 

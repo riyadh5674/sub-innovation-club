@@ -109,8 +109,14 @@ section {
 
     .brand-logo {
       height: 46px;
-      width: auto;
+      width: 46px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center;
       display: block;
+      background: transparent;
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
     }
 
     .brand-text {
