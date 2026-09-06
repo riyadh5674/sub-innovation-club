@@ -49,7 +49,7 @@ export const clubData = {
   stats: [
     { value: 8, suffix: '+', label: 'Flagship Activities' },
     { value: 10, suffix: '+', label: 'Departments Represented' },
-    { value: 2, suffix: '+', label: 'Major Workshops' },
+    { value: 100, suffix: '+', label: 'Workshop Participants' },
     { value: 100, suffix: '%', label: 'Open to Every Student' },
   ],
 
@@ -59,41 +59,65 @@ export const clubData = {
       icon: 'fa-solid fa-lightbulb',
       title: 'Brainwave Battle',
       desc: 'A rapid-fire idea competition where teams pitch creative solutions to real-world problems.',
+      category: 'Competition',
+      accent: '#f59e0b',
+      accentDeep: '#d97706',
     },
     {
       icon: 'fa-solid fa-laptop-code',
       title: 'Smart University Hackathon',
       desc: 'A 24-hour build marathon where students code, design and prototype solutions for a smarter campus.',
+      category: 'Competition',
+      accent: '#06b6d4',
+      accentDeep: '#0891b2',
     },
     {
       icon: 'fa-solid fa-leaf',
       title: 'Green Campus Initiative',
       desc: 'Sustainability projects and campaigns that make our campus greener and more climate-conscious.',
+      category: 'Challenge',
+      accent: '#10b981',
+      accentDeep: '#059669',
     },
     {
       icon: 'fa-solid fa-brain',
       title: 'On-the-Spot Problem-Solving Challenge',
       desc: 'Think fast under pressure as teams tackle surprise challenges with limited time and resources.',
+      category: 'Challenge',
+      accent: '#f43f5e',
+      accentDeep: '#e11d48',
     },
     {
       icon: 'fa-solid fa-map-location-dot',
       title: 'Campus Treasure Hunt',
       desc: 'A fun, puzzle-driven scavenger hunt across the campus that tests logic, speed and teamwork.',
+      category: 'Challenge',
+      accent: '#8b5cf6',
+      accentDeep: '#7c3aed',
     },
     {
       icon: 'fa-solid fa-clapperboard',
       title: 'Narrative Filmmaking Contest',
       desc: 'Students tell compelling short stories through film, honing creativity and media skills.',
+      category: 'Competition',
+      accent: '#ec4899',
+      accentDeep: '#db2777',
     },
     {
       icon: 'fa-solid fa-robot',
       title: 'Robotics Contest',
       desc: 'Design, build and race robots — combining engineering, programming and hands-on invention.',
+      category: 'Competition',
+      accent: '#f97316',
+      accentDeep: '#ea580c',
     },
     {
       icon: 'fa-solid fa-puzzle-piece',
       title: 'Sudoku Competition',
       desc: 'A test of logic and patience as students race to complete the toughest Sudoku grids.',
+      category: 'Competition',
+      accent: '#3b82f6',
+      accentDeep: '#2563eb',
     },
   ],
 
@@ -241,6 +265,22 @@ export const clubData = {
   /* ---- Membership Fee ------------------------------------------------ */
   membershipFee: 300,
   membershipFeeCurrency: 'BDT',
+
+  /* ---- Form endpoints (Formspree) ----------------------------------- */
+  /* Set `showContactForm` to false to switch the contact form off.      */
+  forms: {
+    membership: 'https://formspree.io/f/xwlkqvbr',
+    contact: 'https://formspree.io/f/xwlkqvbr',
+    showContactForm: true,
+  },
+
+  /* ---- Next event countdown (DORMANT by default) -------------------- */
+  /* To activate, set `target` to an ISO date string, e.g.               */
+  /* "2026-11-15T09:00:00+06:00". Until then the banner stays hidden.    */
+  countdown: {
+    title: 'Smart University Hackathon',
+    target: '',
+  },
 
   /* ---- Departments (for membership form dropdown) -------------------- */
   departments: [

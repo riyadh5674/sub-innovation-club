@@ -4,19 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="SUB Innovation Club (SUBIC) - Encouraging creativity, problem-solving, and entrepreneurship through innovation challenges and projects at the State University of Bangladesh." />
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0f1a14" media="(prefers-color-scheme: dark)" />
+
+  <!-- Icons / manifest -->
+  <link rel="icon" type="image/jpeg" href="./src/assets/images/sub-logo.jpg" />
+  <link rel="apple-touch-icon" href="./sub-logo.jpg" />
+  <link rel="manifest" href="./site.webmanifest" />
 
   <!-- Open Graph / Social -->
   <meta property="og:type" content="website" />
   <meta property="og:title" content="SUB Innovation Club - State University of Bangladesh" />
   <meta property="og:description" content="Encouraging creativity, problem-solving, and entrepreneurship through innovation challenges and projects." />
-  <meta property="og:image" content="https://riyadh5674.github.io/sub-innovation-club/assets/sub-logo.jpg" />
+  <meta property="og:image" content="https://riyadh5674.github.io/sub-innovation-club/sub-logo.jpg" />
   <meta property="og:url" content="https://riyadh5674.github.io/sub-innovation-club/" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="SUB Innovation Club - State University of Bangladesh" />
   <meta name="twitter:description" content="Encouraging creativity, problem-solving, and entrepreneurship through innovation challenges and projects." />
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/jpeg" href="/src/assets/images/sub-logo.jpg" />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -31,7 +35,7 @@
     "name": "SUB Innovation Club",
     "alternateName": "SUBIC",
     "url": "https://riyadh5674.github.io/sub-innovation-club/",
-    "logo": "https://riyadh5674.github.io/sub-innovation-club/assets/sub-logo.jpg",
+    "logo": "https://riyadh5674.github.io/sub-innovation-club/sub-logo.jpg",
     "description": "Central innovation club at the State University of Bangladesh encouraging creativity, problem-solving, and entrepreneurship.",
     "address": {
       "@type": "PostalAddress",
@@ -54,12 +58,18 @@
 </head>
 <body>
 
+  <!-- Skip link for keyboard users -->
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <!-- ================= PRELOADER ================= -->
   <div class="preloader" id="preloader">
-    <img class="preloader-logo" src="/src/assets/images/sub-logo.jpg" alt="SUBIC" />
+    <img class="preloader-logo" src="./src/assets/images/sub-logo.jpg" alt="SUBIC" />
     <div class="preloader-spinner"></div>
     <p class="preloader-text">Loading...</p>
   </div>
+
+  <!-- Scroll progress bar -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
   <!-- ================= NAVBAR ================= -->
   <nav class="navbar navbar-expand-lg club-navbar sticky-top">
@@ -109,10 +119,12 @@
     </div>
   </nav>
 
-  <main>
+  <main id="main">
     <!-- ================= HERO ================= -->
     <section class="hero" id="home">
       <div class="hero-grid-bg"></div>
+      <canvas id="hero-canvas" aria-hidden="true"></canvas>
+      <div class="hero-glow" aria-hidden="true"></div>
       <div class="container">
         <a class="back-sub" href="https://www.sub.ac.bd" target="_blank" rel="noopener">
           <i class="fa-solid fa-arrow-left"></i> Back to SUB
@@ -126,6 +138,9 @@
           <a href="#membership" class="btn btn-light">Become a Member</a>
           <a href="#activities" class="btn btn-outline-light">Explore Activities</a>
         </div>
+      </div>
+      <div class="hero-marquee" aria-hidden="true">
+        <div class="hero-marquee-track" id="hero-marquee"></div>
       </div>
     </section>
 
@@ -193,6 +208,7 @@
           <h2 class="section-title reveal">Major Activities</h2>
           <p class="section-sub reveal">Hands-on competitions, challenges and projects that turn ideas into real skills.</p>
         </div>
+        <div class="activity-filters reveal" id="activity-filters" aria-label="Filter activities"></div>
         <div class="row g-4 reveal-stagger" id="activities-grid"></div>
       </div>
     </section>
@@ -205,6 +221,24 @@
           <h2 class="section-title reveal">Events &amp; Highlights</h2>
           <p class="section-sub reveal">Recent programmes organized by the SUB Innovation Club.</p>
         </div>
+
+        <!-- Next event countdown (dormant until clubData.countdown.target is set) -->
+        <div class="countdown-banner reveal" id="countdownWrap" style="display:none;">
+          <div class="countdown-label">
+            <i class="fa-solid fa-stopwatch"></i>
+            <span id="countdownTitle"></span>
+          </div>
+          <div class="countdown-grid" id="countdownGrid">
+            <div class="countdown-box"><span class="cd-num" id="cdDays">0</span><span class="cd-label">Days</span></div>
+            <div class="countdown-box"><span class="cd-num" id="cdHours">00</span><span class="cd-label">Hours</span></div>
+            <div class="countdown-box"><span class="cd-num" id="cdMinutes">00</span><span class="cd-label">Minutes</span></div>
+            <div class="countdown-box"><span class="cd-num" id="cdSeconds">00</span><span class="cd-label">Seconds</span></div>
+          </div>
+          <div class="countdown-live" id="cdLive" style="display:none;">
+            <i class="fa-solid fa-fire"></i> We're live — join the event now!
+          </div>
+        </div>
+
         <div class="timeline reveal" id="events-wrap"></div>
       </div>
     </section>
@@ -294,6 +328,10 @@
 
         <div class="membership-form-card reveal-scale" id="membershipFormCard">
           <!-- Step Indicator -->
+          <div class="step-progress-wrap">
+            <div class="step-progress"><div class="step-progress-bar" id="stepProgressBar"></div></div>
+            <span class="step-progress-label" id="stepProgressLabel">Step 1 of 6</span>
+          </div>
           <div class="step-indicator">
             <div class="step active" data-step="1">1</div>
             <div class="step" data-step="2">2</div>
@@ -471,6 +509,7 @@
               <div class="form-group">
                 <label>Areas of Interest <span class="required">*</span></label>
                 <div class="interests-grid" id="interestsGrid"></div>
+                <div class="form-error" id="interestsError" style="display:none;">Select at least one area of interest.</div>
               </div>
 
               <div class="form-group">
@@ -652,17 +691,17 @@
           <div class="col-lg-6 reveal-right">
             <div class="card border-0 shadow-sm p-4 h-100">
               <h5 class="mb-3">Send us a message</h5>
-              <form onsubmit="return false;">
+              <form id="contactForm">
                 <div class="mb-3">
-                  <input type="text" class="form-control" placeholder="Your name" />
+                  <input type="text" class="form-control" name="name" placeholder="Your name" aria-label="Your name" required />
                 </div>
                 <div class="mb-3">
-                  <input type="email" class="form-control" placeholder="Your email" />
+                  <input type="email" class="form-control" name="email" placeholder="Your email" aria-label="Your email" required />
                 </div>
                 <div class="mb-3">
-                  <textarea class="form-control" rows="4" placeholder="Your message"></textarea>
+                  <textarea class="form-control" rows="4" name="message" placeholder="Your message" aria-label="Your message" required></textarea>
                 </div>
-                <button class="btn btn-join w-100">Send</button>
+                <button type="submit" class="btn btn-join w-100"><i class="fa-solid fa-paper-plane me-1"></i>Send Message</button>
               </form>
             </div>
           </div>
@@ -718,6 +757,9 @@
   <button class="scroll-top" id="scrollTopBtn" style="display:none;" title="Back to top">
     <i class="fa-solid fa-arrow-up"></i>
   </button>
+
+  <!-- Toast notifications (rendered here by toast.js) -->
+  <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="false"></div>
 
   <script type="module" src="/src/js/main.js"></script>
 </body>
