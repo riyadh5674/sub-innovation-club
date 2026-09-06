@@ -32,7 +32,8 @@ university's existing Bootstrap-based website.
 - [Editing content](#editing-content)
 - [Online Membership System](#online-membership-system)
 - [Configuring Formspree](#configuring-formspree)
-- [Building for production](#building-for-production)
+- [Activating the event countdown](#activating-the-event-countdown)
+- [Building & verifying](#building--verifying)
 - [Deployment](#deployment)
 - [Merging into the university site](#merging-into-the-university-site)
 - [License](#license)
@@ -43,34 +44,32 @@ university's existing Bootstrap-based website.
 
 The official [SUB Innovation Club](https://sub.ac.bd/innovationclub) page consists of little more
 than a one-line objective and a list of activity names. This project is a **complete redesign**
-that turns the club's presence into a rich, content-driven page while remaining fully compatible
-with the university's technology stack (Bootstrap 5, static front-end), so it can be adopted by the
-university IT team later.
+that turns the club's presence into a rich, interactive, content-driven page while remaining fully
+compatible with the university's technology stack (Bootstrap 5, static front-end), so it can be
+adopted by the university IT team later.
 
 Real club information (from the official SUB site and the club's Facebook page) has already been
 incorporated: the Convenor, recent workshops, and flagship activities.
 
 ## Features
 
-- 🎯 **Hero** with animated tagline + key stats strip
-- 📖 **About** the club
-- 🧭 **Mission & Vision**
-- 🧩 **Major Activities** — all 8 flagship competitions and challenges
+- 🎯 **Animated hero** — particle canvas, word-by-word gradient headline, marquee ticker,
+  cursor glow and magnetic buttons
+- 📊 **Key stats** — animated counters and a configurable event countdown banner
+- 📖 **About** the club + 🧭 **Mission & Vision**
+- 🧩 **Major Activities** — all 8 flagship competitions and challenges, filterable
+  (**All / Competition / Challenge**) with gradient cards, 3D tilt and shine sweep
 - 📅 **Events / Highlights** timeline (from the club's Facebook page)
-- 👥 **Executive Committee** — editable member cards (data-driven)
+- 👥 **Executive Committee** — editable member cards with gradient avatars (data-driven)
 - 🧑‍🏫 **Convenor & Advisors**
-- 🖼️ **Photo Gallery** with lightbox
+- 🖼️ **Photo Gallery** with keyboard-accessible lightbox
+- 🏆 **Online Membership System** — 6-step registration with online payment
+- 📋 **FAQ accordion**, 💬 **testimonials**, 🤝 **partners**, 📰 **news** cards
 - 💬 **Floating WhatsApp button** and scroll-to-top button
-- 🎨 **SUB-branded styling** on a Bootstrap 5 foundation
-- 🌙 **Dark mode toggle** with `localStorage` persistence
-- 📊 **Animated stat counters** that count up on scroll
-- ✨ **Scroll-reveal animations** on all sections
-- 🎞️ **Preloader** with SUB logo animation
-- 📋 **FAQ accordion** with 8 common questions
-- 💬 **Testimonials** from club members
-- 🤝 **Partners & Affiliations** section
-- 📰 **News & Announcements** blog-style cards
-- 🏆 **Online Membership System** — multi-step registration with online payment
+- 🌙 **Dark mode toggle** with `localStorage` persistence (synced desktop/mobile)
+- ✨ **Scroll-reveal animations**, animated stat counters, and a branded **preloader**
+- ♿ **Accessibility** — skip link, focus rings, ARIA states, reduced-motion support
+- 🍞 **Toast notifications** for form feedback; membership **draft autosave** in `localStorage`
 
 ## Live preview
 
@@ -83,25 +82,34 @@ The project is automatically deployed to GitHub Pages on every push to `main`:
 ```
 sub-innovation-club/
 ├── index.html                 # Page structure + membership form
+├── public/
+│   ├── sub-logo.jpg           # og:image / apple-touch / manifest icon
+│   └── site.webmanifest       # PWA-style site manifest
+├── scripts/
+│   └── verify-build.mjs       # Post-build smoke test (npm run check)
 ├── src/
 │   ├── data/
 │   │   └── club-data.js       # ★ ALL editable content lives here ★
 │   ├── js/
-│   │   ├── main.js            # Page renderer + init
-│   │   ├── membership.js      # Multi-step membership form logic
+│   │   ├── main.js            # Page renderer + init + lightbox + countdown
+│   │   ├── effects.js         # Hero particles, marquee, magnetic, 3D tilt
+│   │   ├── membership.js      # 6-step membership form (drafts, validation)
+│   │   ├── contact.js         # Contact form → Formspree
+│   │   ├── nav.js             # Scrollspy, sticky shrink, collapse autoclose
+│   │   ├── toast.js           # Toast notification system
 │   │   ├── animations.js      # Scroll reveal, counters, parallax
-│   │   └── darkmode.js        # Dark mode toggle
+│   │   └── darkmode.js        # Dark mode toggle (both toggles synced)
 │   └── scss/
-│       ├── main.scss          # Main stylesheet (imports all partials)
+│       ├── main.scss          # Main stylesheet (@use of all partials)
 │       ├── _preloader.scss    # Preloader styles
+│       ├── _base.scss         # Skip link, focus rings, selection, scrollbar, toasts
 │       ├── _animations.scss   # Reveal/counter/parallax keyframes
 │       ├── _sections.scss     # FAQ, testimonials, partners, blog
 │       ├── _membership.scss   # Membership form styles
 │       └── _dark.scss         # Dark mode overrides
-├── .github/
-│   └── workflows/
-│       └── deploy.yml         # GitHub Actions → GitHub Pages
+├── .github/workflows/deploy.yml   # GitHub Actions → GitHub Pages
 ├── vite.config.js
+├── package.json               # build / check / preview scripts
 └── README.md
 ```
 
@@ -135,7 +143,7 @@ Edit the values there and rebuild — no HTML or JS changes required.
 | About paragraphs | `clubData.about` |
 | Mission & Vision | `clubData.mission`, `clubData.vision` |
 | Key stats | `clubData.stats` |
-| Activities | `clubData.activities` |
+| Activities (incl. filter category + card accent) | `clubData.activities` |
 | Events / highlights | `clubData.events` |
 | Executive committee | `clubData.committee` — placeholders, fill in real members |
 | Convenor / advisors | `clubData.advisors` |
@@ -148,13 +156,15 @@ Edit the values there and rebuild — no HTML or JS changes required.
 | Departments dropdown | `clubData.departments` |
 | Interest checkboxes | `clubData.interests` |
 | Payment instructions | `clubData.paymentInstructions` |
+| Form endpoints | `clubData.forms` |
+| Event countdown | `clubData.countdown` |
 | Contact & social | `clubData.contacts` |
 
 ## Online Membership System
 
 The site includes a complete online membership application system with:
 
-- **6-step profession form:**
+- **6-step form:**
   1. **Personal Information** — Name, Student ID, Photo, DOB, Gender, Blood Group
   2. **Academic Information** — Department, Batch, Semester, Session
   3. **Contact Information** — Email, Phone, WhatsApp, Address, Emergency Contact
@@ -162,10 +172,13 @@ The site includes a complete online membership application system with:
   5. **Payment** — bKash/Nagad/Rocket/Bank with payment instructions + transaction ID + screenshot
   6. **Review & Submit** — Summary of all entered data + Terms & Conditions
 
+- **Progress bar** showing how far the applicant is through the 6 steps
+- **Draft autosave** — form values (including current step) are saved to `localStorage`
+  and restored with a "resume" toast if the visitor closes and returns
 - **Online fee payment** — ৳300 via bKash, Nagad, Rocket, or bank transfer
-- **Real-time validation** — Form validates fields like student ID pattern, email, phone
-- **Formspree integration** — Submissions are emailed to the club automatically
-- **Confirmation page** — Success message with reference number
+- **Real-time validation** — fields validate on next-step; interests required
+- **Formspree integration** — submissions are emailed to the club automatically
+- **Confirmation page** — success message with reference number
 
 ### Payment methods accepted
 
@@ -178,33 +191,58 @@ The site includes a complete online membership application system with:
 
 ## Configuring Formspree
 
-The membership form uses [Formspree](https://formspree.io) (free tier, no signup limits) to deliver
-submissions to your email.
-
-1. Create a free account at [formspree.io](https://formspree.io)
-2. Create a new form and copy your form ID (e.g., `xdennkvw`)
-3. Open `src/js/membership.js` and replace the endpoint:
+Both the **membership form** and the **contact form** deliver submissions via
+[Formspree](https://formspree.io). The endpoints live in `src/data/club-data.js`:
 
 ```js
-const resp = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+forms: {
+  membership: 'https://formspree.io/f/YOUR_FORM_ID',
+  contact:    'https://formspree.io/f/YOUR_FORM_ID',   // can be a separate form
+  showContactForm: true,
+},
 ```
 
+1. Create a free account at [formspree.io](https://formspree.io)
+2. Create a form (or one per form for separate inboxes) and copy the form ID
+3. Paste the IDs into the `forms` block above
 4. Rebuild and deploy.
 
-## Building for production
+## Activating the event countdown
+
+The countdown banner is **dormant by default** — no dates are hardcoded, so nothing
+ever displays a fake deadline. To activate it, set an ISO date in `club-data.js`:
+
+```js
+countdown: {
+  title:  'Smart University Hackathon',
+  target: '2026-11-15T09:00:00+06:00',   // leave '' to keep it hidden
+},
+```
+
+The banner counts down the days/hours/minutes/seconds to that local time and flips to a
+**"We're live"** state when the time passes.
+
+## Building & verifying
 
 ```bash
-npm run build
-npm run preview
+npm run build       # compile to dist/
+npm run check       # post-build smoke test (fast, no dev server)
+npm run build:all   # build + check in one go
+npm run preview     # serve the built site locally on http://localhost:4173
 ```
+
+`npm run check` runs `scripts/verify-build.mjs`, which asserts that every critical
+element, style, and data string survived the build and that all referenced assets exist.
+The deploy workflow runs the same `build` + `check` before publishing.
 
 ## Deployment
 
 Deployment is fully automated with **GitHub Actions**. On every push to `main`:
 
-1. The project is built with Vite.
-2. The `dist/` output is uploaded as a Pages artifact.
-3. It is published to GitHub Pages.
+1. Dependencies are installed (`npm ci`).
+2. The project is built and verified (`npm run build:all`).
+3. The `dist/` output is uploaded as a Pages artifact.
+4. It is published to GitHub Pages.
 
 ## Merging into the university site (sub.ac.bd)
 
