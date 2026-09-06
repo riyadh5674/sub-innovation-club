@@ -49,7 +49,13 @@ body.dark-mode {
     background: rgba(15, 26, 20, 0.98);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 
+    &.scrolled {
+      background: rgba(15, 26, 20, 0.85);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+    }
+
     .nav-link { color: #d8e8de; &:hover { color: var(--subic-accent); } }
+    .nav-link.active { color: var(--subic-accent); }
     .brand-text .n { color: #fff; }
     .brand-text .s { color: #8fa898; }
   }
@@ -119,6 +125,21 @@ body.dark-mode {
   .activities { background: #142018; }
   .committee { background: #142018; }
 
+  // Activity filter tabs
+  .activity-filters .filter-btn {
+    background: #1a2a20;
+    border-color: #2d4035;
+    color: #cfe8d8;
+
+    &:hover { border-color: var(--subic-accent); color: var(--subic-accent); }
+
+    &.active {
+      background: linear-gradient(135deg, var(--subic-primary), var(--subic-accent));
+      border-color: transparent;
+      color: #fff;
+    }
+  }
+
   // Membership form
   .membership-form-card {
     background: #1a2a20;
@@ -176,6 +197,31 @@ body.dark-mode {
   .scroll-top {
     background: linear-gradient(135deg, var(--subic-accent), var(--subic-primary));
   }
+
+  // Skip link
+  .skip-link {
+    background: #1a2a20;
+    color: var(--subic-accent);
+  }
+
+  // Toast cards
+  .toast-card {
+    background: #1a2a20;
+    border-color: #2d4035;
+    color: #d8e8de;
+
+    .toast-dismiss { color: #6c8a75; }
+  }
+
+  // Countdown banner lives on the green gradient — nothing to override.
+
+  // Membership progress bar
+  .step-progress { background: #243529; }
+  .step-progress-label { color: var(--subic-accent); }
+
+  // Custom scrollbar track blends into the dark bg
+  ::-webkit-scrollbar-track { background: #142018; }
+  ::-webkit-scrollbar-thumb { border: 2px solid #142018; }
 
   // Theme toggle in dark mode
   .theme-toggle .icon-sun { display: inline; }

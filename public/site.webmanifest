@@ -1,0 +1,18 @@
+{
+  "name": "SUB Innovation Club",
+  "short_name": "SUBIC",
+  "description": "Encouraging creativity, problem-solving, and entrepreneurship through innovation challenges and projects at the State University of Bangladesh.",
+  "start_url": "./",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#198754",
+  "icons": [
+    {
+      "src": "sub-logo.jpg",
+      "sizes": "any",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}

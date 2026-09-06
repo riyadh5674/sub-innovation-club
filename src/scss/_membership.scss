@@ -20,6 +20,38 @@
   }
 }
 
+// Step progress bar
+.step-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 auto 1.6rem;
+  max-width: 420px;
+}
+
+.step-progress {
+  flex: 1;
+  height: 6px;
+  border-radius: 6px;
+  background: #e9ecef;
+  overflow: hidden;
+}
+
+.step-progress-bar {
+  height: 100%;
+  width: 0%;
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--subic-primary), var(--subic-accent));
+  transition: width 0.4s ease;
+}
+
+.step-progress-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--subic-primary);
+  white-space: nowrap;
+}
+
 // Step indicator
 .step-indicator {
   display: flex;
@@ -141,6 +173,23 @@
     font-size: 0.8rem;
     color: #dc3545;
     margin-top: 0.3rem;
+  }
+
+  .form-error {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #dc3545;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+
+    &::before {
+      content: '\f071';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      font-size: 0.8rem;
+    }
   }
 
   .form-text {
