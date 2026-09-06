@@ -4,9 +4,15 @@ import '@fortawesome/fontawesome-free/scss/solid.scss';
 import '@fortawesome/fontawesome-free/scss/brands.scss';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { clubData } from '../data/club-data.js';
+import subLogo from '../assets/images/sub-logo.jpg';
 import { initAnimations } from './animations.js';
+import { initEffects, rebindTilts } from './effects.js';
 import { initDarkMode } from './darkmode.js';
 import { initMembership } from './membership.js';
+import { initNav } from './nav.js';
+import { initContact } from './contact.js';
+
+let currentData = null;
 
 /*  =============================================
     SUB Innovation Club - page renderer
@@ -42,7 +48,8 @@ function memberCard(member) {
     ? `<h4 class="member-name">${member.name}</h4>` +
       (member.dept ? `<p class="member-dept">${member.dept}</p>` : '')
     : `<h4 class="member-name member-open">Open Position</h4>
-       <p class="member-dept">To be announced</p>`;
+       <p class="member-dept">To be announced</p>
+       <a class="open-apply" href="#membership">Apply for this role</a>`;
 
   if (member.url) {
     avatarContent = `<a href="${member.url}" target="_blank" rel="noopener" title="View ${member.name}'s profile">${avatarContent}</a>`;
@@ -60,21 +67,77 @@ function memberCard(member) {
     </div>`;
 }
 
+/* -- Activity card + filters --------------------------- */
+
+function activityCardHtml(a) {
+  return `
+    <div class="col-md-6 col-lg-3" data-category="${a.category}">
+      <div class="activity-card" style="--accent:${a.accent};--accent-deep:${a.accentDeep}" data-tilt>
+        <span class="activity-accent-bar" aria-hidden="true"></span>
+        <span class="activity-shine" aria-hidden="true"></span>
+        <div class="activity-icon"><i class="${a.icon}"></i></div>
+        <h4>${a.title}</h4>
+        <p>${a.desc}</p>
+        <span class="activity-chip">${a.category}</span>
+      </div>
+    </div>`;
+}
+
+function renderActivities(list) {
+  const grid = document.getElementById('activities-grid');
+  grid.innerHTML = list.map(activityCardHtml).join('');
+  rebindTilts();
+  if (grid.classList.contains('revealed')) {
+    grid.classList.remove('filter-pop');
+    /* force reflow so the entrance animation replays on filter change */
+    void grid.offsetWidth;
+    grid.classList.add('filter-pop');
+  }
+}
+
+function initActivityFilters(data) {
+  const wrap = document.getElementById('activity-filters');
+  if (!wrap) return;
+  const categories = ['All', ...new Set(data.activities.map((a) => a.category))];
+  wrap.innerHTML = categories
+    .map((c, i) => `<button type="button" class="filter-btn ${i === 0 ? 'active' : ''}" aria-pressed="${i === 0}" data-category="${c}">${c}</button>`)
+    .join('');
+}
+
 function render(data) {
+  currentData = data;
+
   /* Title / meta */
   document.title = `${data.name} - State University of Bangladesh`;
 
-  /* University logo (nav + footer) */
+  /* University logo (nav + footer) + favicon */
   const navLogo = document.getElementById('nav-logo');
   const footerLogo = document.getElementById('footer-logo');
   if (data.universityLogo) {
     if (navLogo) navLogo.src = data.universityLogo;
     if (footerLogo) footerLogo.src = data.universityLogo;
   }
+  const favicon = document.querySelector('link[rel="icon"]');
+  if (favicon) favicon.href = subLogo;
 
   /* Hero */
-  document.getElementById('hero-club-name').textContent = data.name;
+  const heroName = document.getElementById('hero-club-name');
+  if (heroName) {
+    heroName.innerHTML = data.name
+      .split(' ')
+      .map((w, i) => `<span class="hero-word" style="--i:${i}">${w}</span>`)
+      .join(' ');
+  }
   document.getElementById('hero-tagline').textContent = data.tagline;
+
+  /* Hero marquee ticker */
+  const marqueeTrack = document.getElementById('hero-marquee');
+  if (marqueeTrack) {
+    const half = data.activities
+      .map((a) => `<span class="hero-marquee-item"><i class="${a.icon}"></i>${a.title}</span>`)
+      .join('');
+    marqueeTrack.innerHTML = half + half;
+  }
 
   /* Stats (with data-target for counter animation) */
   const statsRow = document.getElementById('stats-row');
@@ -107,18 +170,8 @@ function render(data) {
   document.getElementById('vision-text').textContent = data.vision;
 
   /* Activities */
-  document.getElementById('activities-grid').innerHTML = data.activities
-    .map(
-      (a) => `
-      <div class="col-md-6 col-lg-3">
-        <div class="activity-card">
-          <div class="activity-icon"><i class="${a.icon}"></i></div>
-          <h4>${a.title}</h4>
-          <p>${a.desc}</p>
-        </div>
-      </div>`
-    )
-    .join('');
+  renderActivities(data.activities);
+  initActivityFilters(data);
 
   /* Events */
   const eventsWrap = document.getElementById('events-wrap');
@@ -204,14 +257,28 @@ function render(data) {
       .map(
         (f, i) => `
       <div class="faq-item" data-faq="${i}">
-        <button class="faq-question" type="button" aria-expanded="false" onclick="toggleFaq(${i})">
+        <button class="faq-question" type="button" aria-expanded="false" aria-controls="faq-answer-${i}" onclick="toggleFaq(${i})">
           <span>${f.q}</span>
           <span class="faq-toggle"><i class="fa-solid fa-chevron-down"></i></span>
         </button>
-        <div class="faq-answer">${f.a}</div>
+        <div class="faq-answer" id="faq-answer-${i}">${f.a}</div>
       </div>`
       )
       .join('');
+  }
+
+  /* Countdown (dormant until a target date is set in club-data.js) */
+  const countdownWrap = document.getElementById('countdownWrap');
+  if (countdownWrap) {
+    const cd = data.countdown;
+    if (cd && cd.target) {
+      const titleEl = document.getElementById('countdownTitle');
+      if (titleEl) titleEl.textContent = cd.title || 'Next event';
+      countdownWrap.style.display = '';
+      initCountdown(new Date(cd.target).getTime());
+    } else {
+      countdownWrap.style.display = 'none';
+    }
   }
 
   /* Partners */
@@ -280,12 +347,48 @@ document.addEventListener('click', (e) => {
   showLightbox(item.getAttribute('href'), item.getAttribute('data-caption') || '');
 });
 
+/* -- Activity filter tabs ------------------------------ */
+
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn || !currentData) return;
+  const cat = btn.dataset.category;
+  document.querySelectorAll('.filter-btn').forEach((b) => {
+    const active = b === btn;
+    b.classList.toggle('active', active);
+    b.setAttribute('aria-pressed', String(active));
+  });
+  if (cat === 'All') {
+    renderActivities(currentData.activities);
+    return;
+  }
+  renderActivities(currentData.activities.filter((a) => a.category === cat));
+});
+
 function showLightbox(src, caption = '') {
   const overlay = document.createElement('div');
   overlay.className = 'lightbox-overlay';
   overlay.innerHTML = `<img src="${src}" alt="Club photo"><button class="lightbox-close" aria-label="Close">&times;</button>${caption ? `<p class="lightbox-caption">${caption}</p>` : ''}`;
-  overlay.addEventListener('click', () => overlay.remove());
+
+  const close = () => {
+    document.removeEventListener('keydown', onKey);
+    document.body.style.overflow = '';
+    overlay.remove();
+  };
+
+  const onKey = (e) => {
+    if (e.key === 'Escape') close();
+  };
+
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay || e.target.classList.contains('lightbox-close')) close();
+  });
+  document.addEventListener('keydown', onKey);
+  document.body.style.overflow = 'hidden';
   document.body.appendChild(overlay);
+
+  const closeBtn = overlay.querySelector('.lightbox-close');
+  if (closeBtn) closeBtn.focus();
 }
 
 /* -- FAQ toggle --------------------------------------- */
@@ -294,9 +397,49 @@ window.toggleFaq = function (index) {
   if (!item) return;
   const isOpen = item.classList.contains('open');
   // close all
-  document.querySelectorAll('.faq-item').forEach((el) => el.classList.remove('open'));
-  if (!isOpen) item.classList.add('open');
+  document.querySelectorAll('.faq-item').forEach((el) => {
+    el.classList.remove('open');
+    const btn = el.querySelector('.faq-question');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+  });
+  if (!isOpen) {
+    item.classList.add('open');
+    const btn = item.querySelector('.faq-question');
+    if (btn) btn.setAttribute('aria-expanded', 'true');
+  }
 };
+
+/* -- Dormant countdown --------------------------------- */
+function initCountdown(targetTime) {
+  const boxes = {
+    days: document.getElementById('cdDays'),
+    hours: document.getElementById('cdHours'),
+    minutes: document.getElementById('cdMinutes'),
+    seconds: document.getElementById('cdSeconds'),
+  };
+  const grid = document.getElementById('countdownGrid');
+  const live = document.getElementById('cdLive');
+  if (!grid || !live) return;
+
+  const pad = (n) => String(n).padStart(2, '0');
+
+  const tick = () => {
+    const diff = targetTime - Date.now();
+    if (diff <= 0) {
+      grid.style.display = 'none';
+      live.style.display = 'flex';
+      clearInterval(interval);
+      return;
+    }
+    if (boxes.days) boxes.days.textContent = String(Math.floor(diff / 86400000));
+    if (boxes.hours) boxes.hours.textContent = pad(Math.floor((diff / 3600000) % 24));
+    if (boxes.minutes) boxes.minutes.textContent = pad(Math.floor((diff / 60000) % 60));
+    if (boxes.seconds) boxes.seconds.textContent = pad(Math.floor((diff / 1000) % 60));
+  };
+
+  tick();
+  const interval = setInterval(tick, 1000);
+}
 
 /* -- Scroll-to-top ------------------------------------ */
 const scrollTopBtn = document.getElementById('scrollTopBtn');
@@ -306,27 +449,6 @@ window.addEventListener('scroll', () => {
 if (scrollTopBtn) {
   scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
-
-/* -- Navbar collapse close on link click -------------- */
-document.querySelectorAll('.navbar .nav-link').forEach((link) => {
-  link.addEventListener('click', () => {
-    const collapse = document.getElementById('navbarNav');
-    if (collapse && collapse.classList.contains('show')) {
-      bootstrap.Collapse.getOrCreateInstance(collapse).hide();
-    }
-  });
-});
-
-/* -- Smooth scroll for anchor links ------------------- */
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener('click', function (e) {
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-  });
-});
 
 /* -- Preloader ---------------------------------------- */
 function hidePreloader() {
@@ -339,33 +461,11 @@ function hidePreloader() {
 
 /* -- Init --------------------------------------------- */
 try { render(clubData); } catch (e) { console.error('render failed', e); }
+try { initNav(); } catch (e) { console.error('nav init failed', e); }
 try { initAnimations(); } catch (e) { console.error('animations failed', e); }
+try { initEffects(); } catch (e) { console.error('effects failed', e); }
 try { initDarkMode(); } catch (e) { console.error('darkmode failed', e); }
 try { initMembership(); } catch (e) { console.error('membership init failed', e); }
-
-// Sync mobile dark mode toggle
-const mobileToggle = document.getElementById('themeToggleMobile');
-if (mobileToggle) {
-  mobileToggle.addEventListener('click', () => {
-    const isDark = document.body.classList.toggle('dark-mode');
-    localStorage.setItem('subic_theme', isDark ? 'dark' : 'light');
-    // Sync both toggles
-    const desktopToggle = document.getElementById('themeToggle');
-    if (desktopToggle) {
-      const sun = desktopToggle.querySelector('.icon-sun');
-      const moon = desktopToggle.querySelector('.icon-moon');
-      if (sun && moon) {
-        sun.style.display = isDark ? 'inline' : 'none';
-        moon.style.display = isDark ? 'none' : 'inline';
-      }
-    }
-    const mSun = mobileToggle.querySelector('.icon-sun');
-    const mMoon = mobileToggle.querySelector('.icon-moon');
-    if (mSun && mMoon) {
-      mSun.style.display = isDark ? 'inline' : 'none';
-      mMoon.style.display = isDark ? 'none' : 'inline';
-    }
-  });
-}
+try { initContact(); } catch (e) { console.error('contact init failed', e); }
 
 window.addEventListener('load', hidePreloader);

@@ -3,8 +3,10 @@
 // ============================================================
 
 import { clubData } from '../data/club-data.js';
+import { showToast } from './toast.js';
 
 const TOTAL_STEPS = 6;
+const DRAFT_KEY = 'subic_membership_draft';
 let currentStep = 1;
 let formData = {};
 
@@ -15,9 +17,20 @@ export function initMembership() {
   setupPhotoUpload();
   setupPaymentMethods();
   setupPaymentScreenshot();
+  setupAutoSave();
+  restoreDraft();
   setupFormSubmit();
   setupInterestToggles();
   renderPaymentInstructions('bkash');
+  updateProgressBar();
+}
+
+function updateProgressBar() {
+  const bar = document.getElementById('stepProgressBar');
+  if (!bar) return;
+  bar.style.width = `${((currentStep - 1) / (TOTAL_STEPS - 1)) * 100}%`;
+  const label = document.getElementById('stepProgressLabel');
+  if (label) label.textContent = `Step ${currentStep} of ${TOTAL_STEPS}`;
 }
 
 function renderDepartments() {
@@ -66,7 +79,8 @@ function setupStepNavigation() {
   });
 }
 
-function goToStep(step) {
+function goToStep(step, options = {}) {
+  const { animate = true } = options;
   if (step < 1 || step > TOTAL_STEPS) return;
 
   document.querySelectorAll('.form-step').forEach((el) => el.classList.remove('active'));
@@ -84,8 +98,11 @@ function goToStep(step) {
   }
 
   currentStep = step;
+  updateProgressBar();
 
-  document.querySelector('.membership-form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (animate) {
+    document.querySelector('.membership-form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }
 
 function validateStep(step) {
@@ -134,6 +151,19 @@ function validateStep(step) {
     if (txnId && !txnId.value.trim()) {
       showError(txnId, 'Transaction ID is required');
       valid = false;
+    }
+  }
+
+  // Step 4: at least one interest
+  if (step === 4) {
+    const grid = document.getElementById('interestsGrid');
+    const anyChecked = grid && grid.querySelector('input[name="interests"]:checked');
+    const errorEl = document.getElementById('interestsError');
+    if (!anyChecked) {
+      valid = false;
+      if (errorEl) errorEl.style.display = 'block';
+    } else if (errorEl) {
+      errorEl.style.display = 'none';
     }
   }
 
@@ -222,6 +252,68 @@ function setupPaymentScreenshot() {
   });
 }
 
+/* -- Draft autosave (localStorage, no files) ------------- */
+function setupAutoSave() {
+  const form = document.getElementById('membershipForm');
+  if (!form) return;
+
+  const save = () => {
+    const fd = new FormData(form);
+    const obj = {};
+    fd.forEach((value, key) => {
+      if (typeof value === 'string') obj[key] = value;
+    });
+    localStorage.setItem(
+      DRAFT_KEY,
+      JSON.stringify({ data: obj, step: currentStep })
+    );
+  };
+
+  form.addEventListener('input', debounce(save, 400));
+  form.addEventListener('change', save);
+}
+
+function restoreDraft() {
+  let draft;
+  try {
+    draft = JSON.parse(localStorage.getItem(DRAFT_KEY));
+  } catch {
+    return;
+  }
+  if (!draft || !draft.data) return;
+
+  const form = document.getElementById('membershipForm');
+  if (!form) return;
+
+  Object.entries(draft.data).forEach(([key, value]) => {
+    const el = form.querySelector(`[name="${key}"]`);
+    if (!el) return;
+    if (el.type === 'checkbox') {
+      el.checked = value.includes(el.value) || false;
+      const label = el.closest('.interest-check');
+      if (label) label.classList.toggle('checked', el.checked);
+    } else if (el.tagName === 'SELECT' || el.type !== 'file') {
+      el.value = value;
+    }
+  });
+
+  goToStep(Math.min(Math.max(draft.step || 1, 1), TOTAL_STEPS), { animate: false });
+  updateProgressBar();
+
+  const hasValues = Object.values(draft.data).some((v) => String(v).trim());
+  if (hasValues) {
+    showToast('Saved draft restored — continue where you left off.', 'info');
+  }
+}
+
+function debounce(fn, wait) {
+  let t;
+  return function (...args) {
+    clearTimeout(t);
+    t = setTimeout(() => fn.apply(this, args), wait);
+  };
+}
+
 function gatherFormData() {
   const form = document.getElementById('membershipForm');
   if (!form) return {};
@@ -305,7 +397,7 @@ function setupFormSubmit() {
   btn.addEventListener('click', async () => {
     const terms = document.getElementById('termsCheck');
     if (!terms || !terms.checked) {
-      alert('Please agree to the Terms & Conditions before submitting.');
+      showToast('Please agree to the Terms & Conditions before submitting.', 'error');
       return;
     }
 
@@ -332,7 +424,8 @@ function setupFormSubmit() {
       fd.append('_subject', 'New SUBIC Membership Application');
       fd.append('_template', 'table');
 
-      const resp = await fetch('https://formspree.io/f/xwlkqvbr', {
+      const endpoint = clubData.forms?.membership || 'https://formspree.io/f/xwlkqvbr';
+      const resp = await fetch(endpoint, {
         method: 'POST',
         body: fd,
         headers: { Accept: 'application/json' },
@@ -344,7 +437,7 @@ function setupFormSubmit() {
         throw new Error('Submission failed');
       }
     } catch (err) {
-      alert('Something went wrong. Please try again or contact us directly.');
+      showToast('Something went wrong. Please try again or contact us directly.', 'error');
       btn.disabled = false;
       btn.innerHTML = '<i class="fa-solid fa-paper-plane me-2"></i>Submit Application';
     }
@@ -352,6 +445,7 @@ function setupFormSubmit() {
 }
 
 function showSuccess() {
+  localStorage.removeItem(DRAFT_KEY);
   const form = document.getElementById('membershipForm');
   const success = document.getElementById('membershipSuccess');
   if (form) form.style.display = 'none';
