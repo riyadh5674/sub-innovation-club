@@ -46,3 +46,8 @@ All notable changes to this project are documented here. Format follows
 - Navbar collapse no longer leaves the mobile menu open after tapping a link.
 - Membership submit now uses the data-driven endpoint (keeping the Formspree
   no-file-uploads strategy and `photoProvided`/`screenshotProvided` flags).
+- Hero marquee ticker was absolutely positioned over the hero content on narrow
+  screens (bottom padding too small), so the strip visibly overlapped the text;
+  mobile hero padding and marquee sizing now guarantee a clear gap.
+- Hero badge now stacks on its own line below the "Back to SUB" link instead of
+  flowing inline with it.

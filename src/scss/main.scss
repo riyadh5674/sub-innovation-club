@@ -989,5 +989,14 @@ section {
 // Responsive tweaks
 @media (max-width: 767px) {
   section { padding: 54px 0; }
-  .hero { padding: 90px 0 120px; }
+  .hero { padding: 90px 0 150px; }
+
+  /* Keep the marquee ticker clear of the hero content: the strip sits
+     ~80px above the hero bottom, so the bottom padding must leave room. */
+  .hero-marquee {
+    bottom: 72px;
+
+    .hero-marquee-track { padding: 0.6rem 0; }
+    .hero-marquee-item { font-size: 0.7rem; letter-spacing: 1.2px; margin-right: 2rem; }
+  }
 }
