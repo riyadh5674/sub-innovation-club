@@ -277,7 +277,8 @@ section {
   }
 
   .hero-badge {
-    display: inline-flex;
+    display: flex;
+    width: fit-content;
     align-items: center;
     gap: 0.5rem;
     background: rgba(255,255,255,0.12);
@@ -289,6 +290,7 @@ section {
     letter-spacing: 1px;
     text-transform: uppercase;
     font-weight: 600;
+    margin: 0.9rem 0 0;
   }
 
   h1 {
@@ -976,10 +978,12 @@ section {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  color: #6c757d;
+  color: rgba(255, 255, 255, 0.75);
   font-size: 0.9rem;
   text-decoration: none;
-  &:hover { color: var(--subic-primary); }
+  margin-bottom: 1rem;
+  transition: color 0.2s ease;
+  &:hover { color: #fff; }
 }
 
 // Responsive tweaks
