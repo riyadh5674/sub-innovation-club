@@ -40,7 +40,8 @@ function initScrollSpy() {
       visible.forEach((isVisible, id) => {
         if (isVisible && targets.has(id)) {
           const el = document.getElementById(id);
-          if (!current || (el && el.getBoundingClientRect().top <= document.getElementById(current).getBoundingClientRect().top)) {
+          const currentEl = document.getElementById(current);
+          if (!current || (el && currentEl && el.getBoundingClientRect().top <= currentEl.getBoundingClientRect().top)) {
             current = id;
           }
         }

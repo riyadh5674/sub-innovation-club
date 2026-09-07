@@ -4,8 +4,7 @@
 // Fails (non-zero exit) on any missing marker or broken asset.
 // ============================================================
 
-import { readFile, access } from 'node:fs/promises';
-import { readdir } from 'node:fs/promises';
+import { readFile, access, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 

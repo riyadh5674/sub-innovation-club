@@ -183,6 +183,10 @@ function showError(input, msg) {
 
 function removeError(input) {
   input.classList.remove('is-invalid');
+  const fb = input.nextElementSibling;
+  if (fb && fb.classList.contains('invalid-feedback')) {
+    fb.remove();
+  }
 }
 
 function setupPhotoUpload() {
@@ -194,7 +198,12 @@ function setupPhotoUpload() {
     const file = input.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => { preview.src = e.target.result; };
+      reader.onload = (e) => {
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+        const placeholder = document.getElementById('photoPlaceholder');
+        if (placeholder) placeholder.style.display = 'none';
+      };
       reader.readAsDataURL(file);
     }
   });
@@ -261,7 +270,12 @@ function setupAutoSave() {
     const fd = new FormData(form);
     const obj = {};
     fd.forEach((value, key) => {
-      if (typeof value === 'string') obj[key] = value;
+      if (typeof value !== 'string') return;
+      if (obj[key] !== undefined) {
+        obj[key] = obj[key] + ', ' + value;
+      } else {
+        obj[key] = value;
+      }
     });
     localStorage.setItem(
       DRAFT_KEY,
@@ -420,7 +434,6 @@ function setupFormSubmit() {
 
       // Add extra fields
       fd.append('paymentMethod', formData.paymentMethod);
-      fd.append('txnId', formData.txnId);
       fd.append('_subject', 'New SUBIC Membership Application');
       fd.append('_template', 'table');
 

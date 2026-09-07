@@ -288,7 +288,7 @@ function render(data) {
       .map(
         (p) => `
       <div class="partner-card">
-        ${p.url ? `<a href="${p.url}" target="_blank" rel="noopener"><img src="${p.url}" alt="${p.name}" /></a>` : `<span class="partner-name">${p.name}</span>`}
+        ${p.logo ? `<a href="${p.url || '#'}" target="_blank" rel="noopener"><img src="${p.logo}" alt="${p.name}" /></a>` : `<span class="partner-name">${p.name}</span>`}
       </div>`
       )
       .join('');

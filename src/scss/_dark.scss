@@ -9,11 +9,6 @@
   --subic-border: #2d4035;
   --subic-text: #d8e8de;
   --subic-text-muted: #8fa898;
-
-  body & {
-    background-color: var(--subic-bg);
-    color: var(--subic-text);
-  }
 }
 
 // Dark mode toggle button
@@ -34,9 +29,6 @@
     border-color: var(--subic-primary);
     color: var(--subic-primary);
   }
-
-  .icon-sun { display: none; }
-  .icon-moon { display: inline; }
 }
 
 // When dark mode is active
@@ -224,8 +216,6 @@ body.dark-mode {
   ::-webkit-scrollbar-thumb { border: 2px solid #142018; }
 
   // Theme toggle in dark mode
-  .theme-toggle .icon-sun { display: inline; }
-  .theme-toggle .icon-moon { display: none; }
   .theme-toggle { border-color: #3d5545; color: var(--subic-accent); }
 }
 
